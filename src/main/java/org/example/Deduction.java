@@ -1,6 +1,6 @@
 package org.example;
 
-public class Deduction {
+public class    Deduction {
     private double sss;
     private double philhealth;
     private double pagibig;
