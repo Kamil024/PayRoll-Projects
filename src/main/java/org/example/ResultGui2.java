@@ -46,6 +46,9 @@ public class ResultGui2 extends JFrame {
         container = this.getContentPane();
         container.setLayout(layout);
 
+        //adding bg
+        container.setBackground(new Color(0, 0, 64));
+
         addtoCon(jScrollPane,0,0,1,1);
         addtoCon(jScrollPane2,1,0,1,1);
         addtoCon(jScrollPane3,2,0,1,1);
@@ -53,6 +56,8 @@ public class ResultGui2 extends JFrame {
 
         this.setVisible(true);
         this.pack();
+        //stop resize
+        this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 

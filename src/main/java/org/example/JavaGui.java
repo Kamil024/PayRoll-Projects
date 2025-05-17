@@ -36,19 +36,87 @@ public class JavaGui extends JFrame {
         netpay = new JLabel("Net Pay:");
 
 
-        namefield = new JTextField(10);
-        posfield = new JTextField(10);
-        basicSfield = new JTextField(10);
-        sssfield = new JTextField(10);
-        philHfield = new JTextField(10);
-        pagibigfield = new JTextField(10);
-        grossfield = new JTextField(10);
-        totaldeducfield = new JTextField(10);
-        netfield = new JTextField(10);
+        namefield = new JTextField(15);
+        posfield = new JTextField(15);
+        basicSfield = new JTextField(15);
+        sssfield = new JTextField(15);
+        philHfield = new JTextField(15);
+        pagibigfield = new JTextField(15);
+        grossfield = new JTextField(15);
+        totaldeducfield = new JTextField(15);
+        netfield = new JTextField(15);
 
         layout = new GridBagLayout();
         container = this.getContentPane();
         container.setLayout(layout);
+
+        //Making blue BG
+        container.setBackground(new Color(0, 0, 64));
+
+
+        //Make white text
+        name.setForeground(Color.WHITE);
+        position.setForeground(Color.WHITE);
+        basicSalary.setForeground(Color.WHITE);
+        deductions.setForeground(Color.WHITE);
+        sss.setForeground(Color.WHITE);
+        philH.setForeground(Color.WHITE);
+        pagibig.setForeground(Color.WHITE);
+        grosspay.setForeground(Color.WHITE);
+        totalDeduction.setForeground(Color.WHITE);
+        netpay.setForeground(Color.WHITE);
+
+        //fix font
+        Font bigFont = new Font("Arial", Font.PLAIN, 16);
+
+        //font big for label
+        name.setFont(bigFont);
+        position.setFont(bigFont);
+        basicSalary.setFont(bigFont);
+        deductions.setFont(bigFont);
+        sss.setFont(bigFont);
+        philH.setFont(bigFont);
+        pagibig.setFont(bigFont);
+        grosspay.setFont(bigFont);
+        totalDeduction.setFont(bigFont);
+        netpay.setFont(bigFont);
+
+        //font big for text field
+        namefield.setFont(bigFont);
+        posfield.setFont(bigFont);
+        basicSfield.setFont(bigFont);
+        sssfield.setFont(bigFont);
+        philHfield.setFont(bigFont);
+        pagibigfield.setFont(bigFont);
+        grossfield.setFont(bigFont);
+        totaldeducfield.setFont(bigFont);
+        netfield.setFont(bigFont);
+
+        //font big for button
+        calculate.setFont(bigFont);
+        clear.setFont(bigFont);
+        add.setFont(bigFont);
+        update.setFont(bigFont);
+        delete.setFont(bigFont);
+
+        //fix collor for buttons
+        Color navyLight = new Color(0, 0, 180);
+        Color whiteText = Color.WHITE;
+
+        calculate.setBackground(navyLight);
+        calculate.setForeground(whiteText);
+
+        clear.setBackground(navyLight);
+        clear.setForeground(whiteText);
+
+        add.setBackground(navyLight);
+        add.setForeground(whiteText);
+
+        update.setBackground(navyLight);
+        update.setForeground(whiteText);
+
+        delete.setBackground(navyLight);
+        delete.setForeground(whiteText);
 
         addtoCon(name, 0, 0, 1, 1);
         addtoCon(namefield, 1, 0, 1, 1);
@@ -73,9 +141,14 @@ public class JavaGui extends JFrame {
         addtoCon(netfield, 1, 10, 1, 1);
         addtoCon(add, 0, 11, 1, 1);
         addtoCon(update, 1, 11, 1, 1);
-        addtoCon(delete, 0, 12, 2, 1);
+
+        //dpat wla dell
+        //addtoCon(delete, 0, 12, 2, 1);
         this.setVisible(true);
         this.pack();
+
+        //stop resize
+        this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
