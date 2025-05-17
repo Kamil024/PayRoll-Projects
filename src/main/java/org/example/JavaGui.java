@@ -7,14 +7,13 @@ public class JavaGui extends JFrame {
     GridBagLayout layout;
     Container container;
 
-    JLabel name, basicSalary, position, deductions,sss,philH,
-            pagibig,grosspay,totalDeduction,netpay;
-    JTextField namefield,posfield,basicSfield,sssfield,philHfield,pagibigfield,
-            grossfield,totaldeducfield,netfield;
-    JButton calculate, clear, add,update;
+    JLabel name, basicSalary, position, deductions, sss, philH,
+            pagibig, grosspay, totalDeduction, netpay;
+    JTextField namefield, posfield, basicSfield, sssfield, philHfield, pagibigfield,
+            grossfield, totaldeducfield, netfield;
+    JButton calculate, clear, add, update, delete;
 
-
-    public JavaGui(String title){
+    public JavaGui(String title) {
         this.setTitle(title);
 
         // BUTTONS
@@ -22,8 +21,9 @@ public class JavaGui extends JFrame {
         clear = new JButton("Clear");
         add = new JButton("Add");
         update = new JButton("Update");
+        delete = new JButton("Delete");
 
-        // LABELS
+
         name = new JLabel("Employee Name:");
         position = new JLabel("Position:");
         basicSalary = new JLabel("Basic Salary:");
@@ -35,7 +35,7 @@ public class JavaGui extends JFrame {
         totalDeduction = new JLabel("Total Deduction:");
         netpay = new JLabel("Net Pay:");
 
-        // TEXTFIELDS
+
         namefield = new JTextField(10);
         posfield = new JTextField(10);
         basicSfield = new JTextField(10);
@@ -50,36 +50,36 @@ public class JavaGui extends JFrame {
         container = this.getContentPane();
         container.setLayout(layout);
 
-        addtoCon(name,0,0,1,1);
-        addtoCon(namefield,1,0,1,1);
-        addtoCon(position,0,1,1,1);
-        addtoCon(posfield,1,1,1,1);
-        addtoCon(basicSalary,0,2,1,1);
-        addtoCon(basicSfield,1,2,1,1);
-        addtoCon(deductions,0,3,1,1);
-        addtoCon(sss,0,4,1,1);
-        addtoCon(sssfield,1,4,1,1);
-        addtoCon(philH,0,5,1,1);
-        addtoCon(philHfield,1,5,1,1);
-        addtoCon(pagibig,0,6,1,1);
-        addtoCon(pagibigfield,1,6,1,1);
-        addtoCon(calculate,0,7,1,1);
-        addtoCon(clear,1,7,1,1);
-        addtoCon(grosspay,0,8,1,1);
-        addtoCon(grossfield,1,8,1,1);
-        addtoCon(totalDeduction,0,9,1,1);
-        addtoCon(totaldeducfield,1,9,1,1);
-        addtoCon(netpay,0,10,1,1);
-        addtoCon(netfield,1,10,1,1);
-        addtoCon(add,0,11,1,1);
-        addtoCon(update,1,11,1,1);
-
+        addtoCon(name, 0, 0, 1, 1);
+        addtoCon(namefield, 1, 0, 1, 1);
+        addtoCon(position, 0, 1, 1, 1);
+        addtoCon(posfield, 1, 1, 1, 1);
+        addtoCon(basicSalary, 0, 2, 1, 1);
+        addtoCon(basicSfield, 1, 2, 1, 1);
+        addtoCon(deductions, 0, 3, 1, 1);
+        addtoCon(sss, 0, 4, 1, 1);
+        addtoCon(sssfield, 1, 4, 1, 1);
+        addtoCon(philH, 0, 5, 1, 1);
+        addtoCon(philHfield, 1, 5, 1, 1);
+        addtoCon(pagibig, 0, 6, 1, 1);
+        addtoCon(pagibigfield, 1, 6, 1, 1);
+        addtoCon(calculate, 0, 7, 1, 1);
+        addtoCon(clear, 1, 7, 1, 1);
+        addtoCon(grosspay, 0, 8, 1, 1);
+        addtoCon(grossfield, 1, 8, 1, 1);
+        addtoCon(totalDeduction, 0, 9, 1, 1);
+        addtoCon(totaldeducfield, 1, 9, 1, 1);
+        addtoCon(netpay, 0, 10, 1, 1);
+        addtoCon(netfield, 1, 10, 1, 1);
+        addtoCon(add, 0, 11, 1, 1);
+        addtoCon(update, 1, 11, 1, 1);
+        addtoCon(delete, 0, 12, 2, 1);
         this.setVisible(true);
         this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void addtoCon(Component component, int gridx, int gridy, int gridwidth, int gridheight){
+    public void addtoCon(Component component, int gridx, int gridy, int gridwidth, int gridheight) {
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
         gridBagConstraints.gridx = gridx;
@@ -87,9 +87,66 @@ public class JavaGui extends JFrame {
         gridBagConstraints.gridwidth = gridwidth;
         gridBagConstraints.gridheight = gridheight;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new Insets(5,5,5,5);
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
 
-        container.add(component,gridBagConstraints);
+        container.add(component, gridBagConstraints);
+    }
 
+
+    public JButton getCalculateButton() {
+        return calculate;
+    }
+
+    public JButton getClearButton() {
+        return clear;
+    }
+
+    public JButton getAddButton() {
+        return add;
+    }
+
+    public JButton getUpdateButton() {
+        return update;
+    }
+
+    public JButton getDeleteButton() {
+        return delete;
+    }
+
+
+    public JTextField getNameField() {
+        return namefield;
+    }
+
+    public JTextField getPosField() {
+        return posfield;
+    }
+
+    public JTextField getBasicSField() {
+        return basicSfield;
+    }
+
+    public JTextField getSssField() {
+        return sssfield;
+    }
+
+    public JTextField getPhilHField() {
+        return philHfield;
+    }
+
+    public JTextField getPagibigField() {
+        return pagibigfield;
+    }
+
+    public JTextField getGrossField() {
+        return grossfield;
+    }
+
+    public JTextField getTotalDeducField() {
+        return totaldeducfield;
+    }
+
+    public JTextField getNetField() {
+        return netfield;
     }
 }
