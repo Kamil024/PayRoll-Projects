@@ -93,10 +93,6 @@ public class JavaGui extends JFrame {
     }
 
 
-
-
-    //Explain ano ni Commented by: Jayson
-    ////////////////////
     public JButton getCalculateButton() {
         return calculate;
     }
@@ -153,5 +149,4 @@ public class JavaGui extends JFrame {
     public JTextField getNetField() {
         return netfield;
     }
-    ////////////////
 }

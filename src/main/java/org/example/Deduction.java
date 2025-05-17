@@ -1,37 +1,37 @@
 package org.example;
 
 public class    Deduction {
-    private double sss;
-    private double philhealth;
-    private double pagibig;
+    private String sss;
+    private String philhealth;
+    private String pagibig;
 
-    public Deduction(double sss, double philhealth, double pagibig) {
+    public Deduction(String sss, String philhealth, String pagibig) {
         this.sss = sss;
         this.philhealth = philhealth;
         this.pagibig = pagibig;
     }
 
-    public double getSss() {
+    public String getSss() {
         return sss;
     }
 
-    public void setSss(double sss) {
+    public void setSss(String sss) {
         this.sss = sss;
     }
 
-    public double getPhilhealth() {
+    public String getPhilhealth() {
         return philhealth;
     }
 
-    public void setPhilhealth(double philhealth) {
+    public void setPhilhealth(String philhealth) {
         this.philhealth = philhealth;
     }
 
-    public double getPagibig() {
+    public String getPagibig() {
         return pagibig;
     }
 
-    public void setPagibig(double pagibig) {
+    public void setPagibig(String pagibig) {
         this.pagibig = pagibig;
     }
 }
