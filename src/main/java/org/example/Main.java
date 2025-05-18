@@ -23,7 +23,7 @@ public class Main {
                     return;
                 }
                 double taxPercent = Double.parseDouble(javaGui.taxfield.getText());
-
+                // if tax is out of range
                 if (taxPercent < 0 || taxPercent > 100) {
                     JOptionPane.showMessageDialog(null, "Tax percentage must be between 0 and 100.");
                     return;
