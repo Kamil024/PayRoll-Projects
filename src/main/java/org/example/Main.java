@@ -42,7 +42,7 @@ public class Main {
                 double total = totalsss + totalPH + totalPagibig;
                 javaGui.totaldeducfield.setText(String.format("%.2f",total));
 
-                // netpay
+                // netpayy
                 double taxtotal = Double.parseDouble(javaGui.taxfield.getText());
                 double netTotal = gross - total - taxtotal;
                 javaGui.netfield.setText(String.format("%.2f",netTotal));
