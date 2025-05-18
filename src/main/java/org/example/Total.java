@@ -1,38 +1,39 @@
 package org.example;
 
 public class Total {
-    private double grossPay;
-    private double totalDeduc;
-    private double netPay;
+    private String grossPay;
+    private String totalDeduc;
+    private String netPay;
 
 
-    public Total(double grossPay, double totalDeduc, double netPay) {
+    public Total(String grossPay, String totalDeduc, String netPay) {
         this.grossPay = grossPay;
         this.totalDeduc = totalDeduc;
         this.netPay = netPay;
     }
 
-    public double getGrossPay() {
+    public String getGrossPay() {
+
         return grossPay;
     }
 
-    public void setGrossPay(double grossPay) {
+    public void setGrossPay(String grossPay) {
         this.grossPay = grossPay;
     }
 
-    public double getTotalDeduc() {
+    public String getTotalDeduc() {
         return totalDeduc;
     }
 
-    public void setTotalDeduc(double totalDeduc) {
+    public void setTotalDeduc(String totalDeduc) {
         this.totalDeduc = totalDeduc;
     }
 
-    public double getNetPay() {
+    public String getNetPay() {
         return netPay;
     }
 
-    public void setNetPay(double netPay) {
+    public void setNetPay(String netPay) {
         this.netPay = netPay;
     }
 }

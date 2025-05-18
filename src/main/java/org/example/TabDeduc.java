@@ -30,6 +30,24 @@ public class TabDeduc extends AbstractTableModel {
         return columns.length;
     }
 
+    public void remove(int index) {
+        person.remove(index);
+        fireTableDataChanged();
+    }
+
+    public Deduction get(int index) {
+        return person.get(index);
+    }
+
+
+    public void update(int index, Deduction updatedDeduction) {
+        if(index >= 0 && index < person.size()) {
+            person.set(index, updatedDeduction);
+            fireTableDataChanged();
+        }
+    }
+
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Deduction po = person.get(rowIndex);
