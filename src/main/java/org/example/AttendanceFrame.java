@@ -17,6 +17,7 @@ public class AttendanceFrame extends JFrame {
     JTable table;
     JScrollPane jScrollPane;
 
+    // counters
     int dayCounter = 0;
     int presentCount = 0;
     int absentCount = 0;
@@ -91,9 +92,6 @@ public class AttendanceFrame extends JFrame {
                 }
             }
         });
-
-
-
 
         addtoCon(id,0,0,1,1);
         addtoCon(idField,1,0,1,1);
