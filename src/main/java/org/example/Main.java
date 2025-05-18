@@ -22,35 +22,45 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "You must complete 30 days before calculating gross pay.");
                     return;
                 }
-                double gross = 0;
+                double taxPercent = Double.parseDouble(javaGui.taxfield.getText());
 
-
-                try {
-                    // gross pay
-                    int present = attendanceFrame.presentCount + attendanceFrame.leaveCount;
-                    double basicS = Double.parseDouble(javaGui.basicSfield.getText());
-                     gross = present * basicS;
-                    javaGui.grossfield.setText(String.format("%.2f",gross));
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid daily rate.");
+                if (taxPercent < 0 || taxPercent > 100) {
+                    JOptionPane.showMessageDialog(null, "Tax percentage must be between 0 and 100.");
+                    return;
                 }
 
-                // total deduction
-                double totalsss = Double.parseDouble(javaGui.sssfield.getText());
-                double totalPH = Double.parseDouble(javaGui.philHfield.getText());
-                double totalPagibig = Double.parseDouble(javaGui.pagibigfield.getText());
-                double total = totalsss + totalPH + totalPagibig;
-                javaGui.totaldeducfield.setText(String.format("%.2f",total));
+                double gross = 0;
 
-                // netpayy
-                double taxtotal = Double.parseDouble(javaGui.taxfield.getText());
-                double netTotal = gross - total - taxtotal;
-                javaGui.netfield.setText(String.format("%.2f",netTotal));
+                try {
+                    int present = attendanceFrame.presentCount + attendanceFrame.leaveCount;
+                    double basicS = Double.parseDouble(javaGui.basicSfield.getText());
+                    gross = present * basicS;
+                    javaGui.grossfield.setText(String.format("%.2f", gross));
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid daily rate.");
+                    return;
+                }
+
+                try {
+                    double totalSSS = Double.parseDouble(javaGui.sssfield.getText());
+                    double totalPH = Double.parseDouble(javaGui.philHfield.getText());
+                    double totalPagibig = Double.parseDouble(javaGui.pagibigfield.getText());
 
 
 
+                    double taxAmount = (taxPercent / 100.0) * gross;
+
+                    double totalDeductions = totalSSS + totalPH + totalPagibig + taxAmount;
+                    javaGui.totaldeducfield.setText(String.format("%.2f", totalDeductions));
+
+                    double netPay = gross - totalDeductions;
+                    javaGui.netfield.setText(String.format("%.2f", netPay));
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter valid numeric values in all deduction fields.");
+                }
             }
         });
+
 
         javaGui.getClearButton().addActionListener(e -> {
             if (!javaGui.getNameField().getText().trim().isEmpty() ||
