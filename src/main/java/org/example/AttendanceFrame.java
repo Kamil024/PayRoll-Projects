@@ -2,6 +2,8 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AttendanceFrame extends JFrame {
     GridBagLayout layout;
@@ -48,36 +50,45 @@ public class AttendanceFrame extends JFrame {
         absent = new JButton("Absent");
         onLeave = new JButton("OnLeave");
 
-        present.addActionListener(e -> {
-            if (dayCounter < 30) {
-                dayCounter++;
-                presentCount++;
-                model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "Present"));
-                updateTotals();
-            } else {
-                JOptionPane.showMessageDialog(this, "Maximum of 30 days reached.");
+        present.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dayCounter < 30) {
+                    dayCounter++;
+                    presentCount++;
+                    model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "Present"));
+                    updateTotals();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Maximum of 30 days reached.");
+                }
             }
         });
 
-        absent.addActionListener(e -> {
-            if (dayCounter < 30) {
-                dayCounter++;
-                absentCount++;
-                model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "Absent"));
-                updateTotals();
-            } else {
-                JOptionPane.showMessageDialog(this, "Maximum of 30 days reached.");
+        absent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dayCounter < 30) {
+                    dayCounter++;
+                    absentCount++;
+                    model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "Absent"));
+                    updateTotals();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Maximum of 30 days reached.");
+                }
             }
         });
 
-        onLeave.addActionListener(e -> {
-            if (dayCounter < 30) {
-                dayCounter++;
-                leaveCount++;
-                model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "On Leave"));
-                updateTotals();
-            } else {
-                JOptionPane.showMessageDialog(this, "Maximum of 30 days reached.");
+        onLeave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dayCounter < 30) {
+                    dayCounter++;
+                    leaveCount++;
+                    model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "On Leave"));
+                    updateTotals();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Maximum of 30 days reached.");
+                }
             }
         });
 
@@ -118,7 +129,7 @@ public class AttendanceFrame extends JFrame {
         totalA.setText("Absent Total: " + absentCount);
         totalL.setText("Total Leaves: " + leaveCount);
     }
-    // resizing 
+    // resizing
     private JScrollPane createScrollPaneWithStyle(JTable table) {
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(20);
