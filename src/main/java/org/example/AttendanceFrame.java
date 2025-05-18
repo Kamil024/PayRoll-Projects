@@ -38,7 +38,7 @@ public class AttendanceFrame extends JFrame {
 
 
         // LABELS
-        id = new JLabel("Identification:");
+        id = new JLabel("Identification Number:");
         totalP = new JLabel("Present Total:");
         totalA = new JLabel("Absent Total:");
         totalL = new JLabel("Total Leaves:");

@@ -135,10 +135,10 @@ public class JavaGui extends JFrame {
         addtoCon(clear, 1, 7, 1, 1);
         addtoCon(grosspay, 0, 8, 1, 1);
         addtoCon(grossfield, 1, 8, 1, 1);
-        addtoCon(totalDeduction, 0, 10, 1, 1);
-        addtoCon(totaldeducfield, 1, 10, 1, 1);
-        addtoCon(netpay, 0, 9, 1, 1);
-        addtoCon(netfield, 1, 9, 1, 1);
+        addtoCon(totalDeduction, 0, 9, 1, 1);
+        addtoCon(totaldeducfield, 1, 9, 1, 1);
+        addtoCon(netpay, 0, 10, 1, 1);
+        addtoCon(netfield, 1, 10, 1, 1);
         addtoCon(add, 0, 11, 1, 1);
         addtoCon(update, 1, 11, 1, 1);
 
