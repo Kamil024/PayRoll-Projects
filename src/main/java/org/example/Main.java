@@ -8,9 +8,10 @@ public class Main {
         JavaGui javaGui = new JavaGui("Payroll System");
         ResultGui2 resultGui2 = new ResultGui2("List Table");
        // AttendanceUi3 Test = new AttendanceUi3("Attendance");
-
+        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG");
         //wla pa selection nga may na tabo
         final int[] selectedRowIndex = {-1};
+
 
 
         javaGui.getClearButton().addActionListener(e -> {
