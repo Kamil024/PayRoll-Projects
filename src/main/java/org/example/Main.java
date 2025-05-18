@@ -1,12 +1,18 @@
 package org.example;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main {
     public static void main(String[] args) {
-        //JavaGui javaGui = new JavaGui("Payroll System");
-        //ResultGui2 resultGui2 = new ResultGui2("List Table");
-        AttendanceUi3 Test = new AttendanceUi3("Attendance");
+//        JavaGui javaGui = new JavaGui("Payroll System");
+//        ResultGui2 resultGui2 = new ResultGui2("List Table");
+//        AttendanceUi3 Test = new AttendanceUi3("Attendance");
+        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG");
+
+
+
 
 
 //        javaGui.getClearButton().addActionListener(e -> {

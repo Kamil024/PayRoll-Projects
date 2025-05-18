@@ -226,5 +226,5 @@ public class JavaGui extends JFrame {
     public JTextField getNetField() {
         return netfield;
     }
-    ////////////////
+
 }
