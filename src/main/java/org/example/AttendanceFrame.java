@@ -24,6 +24,7 @@ public class AttendanceFrame extends JFrame {
     int absentCount = 0;
     int leaveCount = 0;
 
+    JPanel buttons;
 
     public AttendanceFrame(String title){
         this.setTitle(title);
@@ -54,6 +55,29 @@ public class AttendanceFrame extends JFrame {
         absent = new JButton("Absent");
         onLeave = new JButton("OnLeave");
 
+        JButton clear = new JButton("Clear");
+
+        buttons = new JPanel();
+        buttons.add(present);
+        buttons.add(absent);
+        buttons.add(onLeave);
+        buttons.add(clear);
+
+        clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                idField.setText("");
+                dayCounter = 0;
+                presentCount = 0;
+                absentCount = 0;
+                leaveCount = 0;
+                model.clearData();
+                updateTotals();
+
+                JOptionPane.showMessageDialog(null, "All data has been cleared successfully.", "Cleared", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
         present.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,7 +86,7 @@ public class AttendanceFrame extends JFrame {
                     JOptionPane.showMessageDialog(null, "Please enter an ID first.", "Missing ID", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                
+
                 if (dayCounter < 30) {
                     dayCounter++;
                     presentCount++;
@@ -128,6 +152,7 @@ public class AttendanceFrame extends JFrame {
         addtoCon(totalP,0,5,1,1);
         addtoCon(totalA,0,6,1,1);
         addtoCon(totalL,0,7,1,1);
+        addtoCon(clear,0,8,1,1);
 
 
         this.setVisible(true);
