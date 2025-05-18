@@ -2,6 +2,8 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AttendanceFrame extends JFrame {
     GridBagLayout layout;
@@ -15,6 +17,7 @@ public class AttendanceFrame extends JFrame {
     JTable table;
     JScrollPane jScrollPane;
 
+    // counters
     int dayCounter = 0;
     int presentCount = 0;
     int absentCount = 0;
@@ -35,7 +38,7 @@ public class AttendanceFrame extends JFrame {
 
 
         // LABELS
-        id = new JLabel("Identification:");
+        id = new JLabel("Identification Number:");
         totalP = new JLabel("Present Total:");
         totalA = new JLabel("Absent Total:");
         totalL = new JLabel("Total Leaves:");
@@ -48,41 +51,47 @@ public class AttendanceFrame extends JFrame {
         absent = new JButton("Absent");
         onLeave = new JButton("OnLeave");
 
-        present.addActionListener(e -> {
-            if (dayCounter < 30) {
-                dayCounter++;
-                presentCount++;
-                model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "Present"));
-                updateTotals();
-            } else {
-                JOptionPane.showMessageDialog(this, "Maximum of 30 days reached.");
+        present.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dayCounter < 30) {
+                    dayCounter++;
+                    presentCount++;
+                    model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "Present"));
+                    updateTotals();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Maximum of 30 days reached.");
+                }
             }
         });
 
-        absent.addActionListener(e -> {
-            if (dayCounter < 30) {
-                dayCounter++;
-                absentCount++;
-                model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "Absent"));
-                updateTotals();
-            } else {
-                JOptionPane.showMessageDialog(this, "Maximum of 30 days reached.");
+        absent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dayCounter < 30) {
+                    dayCounter++;
+                    absentCount++;
+                    model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "Absent"));
+                    updateTotals();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Maximum of 30 days reached.");
+                }
             }
         });
 
-        onLeave.addActionListener(e -> {
-            if (dayCounter < 30) {
-                dayCounter++;
-                leaveCount++;
-                model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "On Leave"));
-                updateTotals();
-            } else {
-                JOptionPane.showMessageDialog(this, "Maximum of 30 days reached.");
+        onLeave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dayCounter < 30) {
+                    dayCounter++;
+                    leaveCount++;
+                    model.addKeys(new AttendanceKey(String.valueOf(dayCounter), "On Leave"));
+                    updateTotals();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Maximum of 30 days reached.");
+                }
             }
         });
-
-
-
 
         addtoCon(id,0,0,1,1);
         addtoCon(idField,1,0,1,1);
@@ -118,7 +127,7 @@ public class AttendanceFrame extends JFrame {
         totalA.setText("Absent Total: " + absentCount);
         totalL.setText("Total Leaves: " + leaveCount);
     }
-    // resizing 
+    // resizing
     private JScrollPane createScrollPaneWithStyle(JTable table) {
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(20);

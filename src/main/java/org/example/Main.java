@@ -2,6 +2,7 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,6 +14,38 @@ public class Main {
         final int[] selectedRowIndex = {-1};
 
 
+
+        javaGui.calculate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (attendanceFrame.dayCounter < 30) {
+                    JOptionPane.showMessageDialog(null, "You must complete 30 days before calculating gross pay.");
+                    return;
+                }
+                int gross = 0;
+
+                try {
+                    int present = attendanceFrame.presentCount + attendanceFrame.leaveCount;
+                    int basicS = Integer.parseInt(javaGui.basicSfield.getText());
+                     gross = present * basicS;
+                    javaGui.grossfield.setText(String.valueOf(gross));
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid daily rate.");
+                }
+
+                int totalsss = Integer.parseInt(javaGui.sssfield.getText());
+                int totalPH = Integer.parseInt(javaGui.philHfield.getText());
+                int totalPagibig = Integer.parseInt(javaGui.pagibigfield.getText());
+
+                int total = totalsss + totalPH + totalPagibig;
+
+                javaGui.totaldeducfield.setText(String.valueOf(total));
+
+
+                int netTotal = gross - total;
+                javaGui.netfield.setText(String.valueOf(netTotal));
+            }
+        });
 
         javaGui.getClearButton().addActionListener(e -> {
             if (!javaGui.getNameField().getText().trim().isEmpty() ||
