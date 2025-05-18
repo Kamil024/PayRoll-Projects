@@ -127,6 +127,8 @@ public class JavaGui extends JFrame {
         delete.setBackground(navyLight);
         delete.setForeground(whiteText);
 
+
+
         addtoCon(name, 0, 0, 1, 1);
         addtoCon(namefield, 1, 0, 1, 1);
         addtoCon(position, 0, 1, 1, 1);

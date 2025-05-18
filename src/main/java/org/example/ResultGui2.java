@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ResultGui2 extends JFrame {
+    private ResultGui2 resultGui2;
+    public void setResultGui2(ResultGui2 resultGui2) {
+        this.resultGui2 = resultGui2;
+    }
+
     GridBagLayout layout;
     Container container;
 
