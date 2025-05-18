@@ -3,16 +3,16 @@ package org.example;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class TabDeduc extends AbstractTableModel {
-    ArrayList<Deduction> person;
+public class TabHours extends AbstractTableModel {
+    ArrayList<HoursWork> person;
 
-    String[] columns ={"SSS" , "PhilHealth", "Pag-IBIG"};
-    public TabDeduc(){
+    String[] columns ={"Date" , "Time"};
+    public TabHours(){
 
         person = new ArrayList<>();
     }
 
-    public void adding(Deduction student){
+    public void adding(HoursWork student){
         person.add(student);
         fireTableDataChanged();
     }
@@ -32,14 +32,12 @@ public class TabDeduc extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Deduction po = person.get(rowIndex);
+        HoursWork po = person.get(rowIndex);
 
         if(columnIndex==0){
-            return po.getSss();
-        }else if(columnIndex == 1) {
-            return po.getPhilhealth();
-        }else{
-            return po.getPagibig();
+            return po.getDate();
+        }else  {
+            return po.getHour();
         }
     }
 }
