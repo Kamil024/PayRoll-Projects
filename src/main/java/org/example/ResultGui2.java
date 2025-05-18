@@ -2,6 +2,8 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ResultGui2 extends JFrame {
     GridBagLayout layout;
@@ -25,6 +27,7 @@ public class ResultGui2 extends JFrame {
 
     JPanel panel;
 
+    JButton addButton;
     JButton deleteButton;
 
     JPanel TablePanel;
@@ -33,28 +36,27 @@ public class ResultGui2 extends JFrame {
         this.setTitle(title);
         model = new Tablee();
         table = new JTable(model);
-        jScrollPane = new JScrollPane(table);
         jScrollPane = createScrollPaneWithStyle(table);
 
         model2 = new TabDeduc();
         table2 = new JTable(model2);
-        jScrollPane2 = new JScrollPane(table2);
         jScrollPane2 = createScrollPaneWithStyle(table2);
 
         model3 = new TabTotal();
         table3 = new JTable(model3);
-        jScrollPane3 = new JScrollPane(table3);
         jScrollPane3 = createScrollPaneWithStyle(table3);
 
         model4 = new TabHours();
         table4 = new JTable(model4);
-        jScrollPane4 = new JScrollPane(table4);
         jScrollPane4 = SmallerTime(table4);
 
+        addButton = new JButton("Add");
         deleteButton = new JButton("Delete");
+
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBackground(new Color(0, 0, 64));
 
+        panel.add(addButton);
         panel.add(deleteButton);
 
         TablePanel = new JPanel();
@@ -65,42 +67,56 @@ public class ResultGui2 extends JFrame {
         layout = new GridBagLayout();
         container = this.getContentPane();
         container.setLayout(layout);
-
-        //adding bg
         container.setBackground(new Color(0, 0, 64));
 
-//        addtoCon(jScrollPane,0,0,1,1);
-//        addtoCon(jScrollPane2,1,0,1,1);
-//        addtoCon(jScrollPane3,2,0,1,1);
-
-          addtoCon(TablePanel,0,0,1,1);
-
-        //addtoCon(jScrollPane4,3,0,1,1);
-
-        addtoCon(panel,0,1,1,1);
+        addtoCon(TablePanel, 0, 0, 1, 1);
+        addtoCon(panel, 0, 1, 1, 1);
 
         this.setVisible(true);
         this.pack();
-        //stop resize
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        // Enforce exactly 30 attendance logs before adding to payroll
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int attendanceCount = model4.getRowCount();
+                if (attendanceCount < 30) {
+                    JOptionPane.showMessageDialog(ResultGui2.this,
+                            "You need exactly 30 attendance entries to add to the payroll.\nCurrently: " + attendanceCount,
+                            "Not enough entries", JOptionPane.WARNING_MESSAGE);
+                    return;
+                } else if (attendanceCount > 30) {
+                    JOptionPane.showMessageDialog(ResultGui2.this,
+                            "You have more than 30 attendance entries.\nPlease remove excess records before proceeding.",
+                            "Too many entries", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                // Only proceeds if exactly 30 records
+                Person newPerson = new Person("New", "Employee", "Position", "10000");
+                model.adding(newPerson);
+
+                JOptionPane.showMessageDialog(ResultGui2.this,
+                        "Person added to payroll.",
+                        "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
     }
 
     public void addtoCon(Container e, int x, int y, int wx, int wy){
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
-        gridBagConstraints.gridx=x;
-        gridBagConstraints.gridy=y;
-        gridBagConstraints.gridwidth=wx;
-        gridBagConstraints.gridheight=wy;
+        gridBagConstraints.gridx = x;
+        gridBagConstraints.gridy = y;
+        gridBagConstraints.gridwidth = wx;
+        gridBagConstraints.gridheight = wy;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.insets = new Insets(5,5,5,5);
 
-        container.add(e,gridBagConstraints);
+        container.add(e, gridBagConstraints);
     }
 
-
-    //Adjust table size
     private JScrollPane createScrollPaneWithStyle(JTable table) {
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(20);
@@ -108,6 +124,7 @@ public class ResultGui2 extends JFrame {
         scrollPane.setPreferredSize(new Dimension(150, 350));
         return scrollPane;
     }
+
     private JScrollPane SmallerTime(JTable table) {
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(20);

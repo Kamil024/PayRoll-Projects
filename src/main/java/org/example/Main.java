@@ -78,8 +78,6 @@ public class Main {
 
 
 
-
-
         resultGui2.deleteButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,52 +1,14 @@
 package org.example;
 
 public class HoursWork {
-
-    //dont mind this prog this is just a test
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //dont mind this prog this is just a test
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    //dont mind this prog this is just a test
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-    //dont mind this prog this is just a test
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-    private String Hour;
     private String date;
+    private String hour;
+    private String attendanceStatus; // "Present", "Absent", "Leave"
 
-    public HoursWork(String hour, String date) {
-        Hour = hour;
+    public HoursWork(String date, String hour, String attendanceStatus) {
         this.date = date;
-    }
-
-    public String getHour() {
-        return Hour;
-    }
-
-    public void setHour(String hour) {
-        Hour = hour;
+        this.hour = hour;
+        this.attendanceStatus = attendanceStatus;
     }
 
     public String getDate() {
@@ -55,5 +17,21 @@ public class HoursWork {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
+
+    public String getAttendanceStatus() {
+        return attendanceStatus;
+    }
+
+    public void setAttendanceStatus(String attendanceStatus) {
+        this.attendanceStatus = attendanceStatus;
     }
 }
