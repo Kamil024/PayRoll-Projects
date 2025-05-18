@@ -8,9 +8,9 @@ public class JavaGui extends JFrame {
     Container container;
 
     JLabel name, basicSalary, position, deductions, sss, philH,
-            pagibig, grosspay, totalDeduction, netpay;
+            pagibig, grosspay, totalDeduction, netpay, tax;
     JTextField namefield, posfield, basicSfield, sssfield, philHfield, pagibigfield,
-            grossfield, totaldeducfield, netfield;
+            grossfield, totaldeducfield, netfield, taxfield;
     JButton calculate, clear, add, update, delete;
 
     public JavaGui(String title) {
@@ -26,7 +26,7 @@ public class JavaGui extends JFrame {
 
         name = new JLabel("Employee Name:");
         position = new JLabel("Position:");
-        basicSalary = new JLabel("Basic Salary:");
+        basicSalary = new JLabel("Daily Salary:");
         deductions = new JLabel("Deductions");
         sss = new JLabel("SSS:");
         philH = new JLabel("PhilHealth:");
@@ -34,6 +34,7 @@ public class JavaGui extends JFrame {
         grosspay = new JLabel("Gross Pay:");
         totalDeduction = new JLabel("Total Deduction:");
         netpay = new JLabel("Net Pay:");
+        tax = new JLabel("Philippine Tax:");
 
 
         namefield = new JTextField(15);
@@ -45,6 +46,11 @@ public class JavaGui extends JFrame {
         grossfield = new JTextField(15);
         totaldeducfield = new JTextField(15);
         netfield = new JTextField(15);
+        taxfield = new JTextField(15);
+
+        this.grossfield.setEditable(false);
+        this.totaldeducfield.setEditable(false);
+        this.netfield.setEditable(false);
 
         layout = new GridBagLayout();
         container = this.getContentPane();
@@ -65,6 +71,7 @@ public class JavaGui extends JFrame {
         grosspay.setForeground(Color.WHITE);
         totalDeduction.setForeground(Color.WHITE);
         netpay.setForeground(Color.WHITE);
+        tax.setForeground(Color.WHITE);
 
         //fix font
         Font bigFont = new Font("Arial", Font.PLAIN, 16);
@@ -80,6 +87,7 @@ public class JavaGui extends JFrame {
         grosspay.setFont(bigFont);
         totalDeduction.setFont(bigFont);
         netpay.setFont(bigFont);
+        tax.setFont(bigFont);
 
         //font big for text field
         namefield.setFont(bigFont);
@@ -91,6 +99,7 @@ public class JavaGui extends JFrame {
         grossfield.setFont(bigFont);
         totaldeducfield.setFont(bigFont);
         netfield.setFont(bigFont);
+        taxfield.setFont(bigFont);
 
         //font big for button
         calculate.setFont(bigFont);
@@ -131,16 +140,18 @@ public class JavaGui extends JFrame {
         addtoCon(philHfield, 1, 5, 1, 1);
         addtoCon(pagibig, 0, 6, 1, 1);
         addtoCon(pagibigfield, 1, 6, 1, 1);
-        addtoCon(calculate, 0, 7, 1, 1);
-        addtoCon(clear, 1, 7, 1, 1);
-        addtoCon(grosspay, 0, 8, 1, 1);
-        addtoCon(grossfield, 1, 8, 1, 1);
-        addtoCon(totalDeduction, 0, 9, 1, 1);
-        addtoCon(totaldeducfield, 1, 9, 1, 1);
-        addtoCon(netpay, 0, 10, 1, 1);
-        addtoCon(netfield, 1, 10, 1, 1);
-        addtoCon(add, 0, 11, 1, 1);
-        addtoCon(update, 1, 11, 1, 1);
+        addtoCon(tax,0,7,1,1);
+        addtoCon(taxfield,1,7,1,1);
+        addtoCon(calculate, 0, 8, 1, 1);
+        addtoCon(clear, 1, 8, 1, 1);
+        addtoCon(grosspay, 0, 9, 1, 1);
+        addtoCon(grossfield, 1, 9, 1, 1);
+        addtoCon(totalDeduction, 0, 10, 1, 1);
+        addtoCon(totaldeducfield, 1, 10, 1, 1);
+        addtoCon(netpay, 0, 11, 1, 1);
+        addtoCon(netfield, 1, 11, 1, 1);
+        addtoCon(add, 0, 12, 1, 1);
+        addtoCon(update, 1, 12, 1, 1);
 
         //dpat wla dell
         //addtoCon(delete, 0, 12, 2, 1);

@@ -22,28 +22,33 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "You must complete 30 days before calculating gross pay.");
                     return;
                 }
-                int gross = 0;
+                double gross = 0;
+
 
                 try {
+                    // gross pay
                     int present = attendanceFrame.presentCount + attendanceFrame.leaveCount;
-                    int basicS = Integer.parseInt(javaGui.basicSfield.getText());
+                    double basicS = Double.parseDouble(javaGui.basicSfield.getText());
                      gross = present * basicS;
-                    javaGui.grossfield.setText(String.valueOf(gross));
+                    javaGui.grossfield.setText(String.format("%.2f",gross));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please enter a valid daily rate.");
                 }
 
-                int totalsss = Integer.parseInt(javaGui.sssfield.getText());
-                int totalPH = Integer.parseInt(javaGui.philHfield.getText());
-                int totalPagibig = Integer.parseInt(javaGui.pagibigfield.getText());
+                // total deduction
+                double totalsss = Double.parseDouble(javaGui.sssfield.getText());
+                double totalPH = Double.parseDouble(javaGui.philHfield.getText());
+                double totalPagibig = Double.parseDouble(javaGui.pagibigfield.getText());
+                double total = totalsss + totalPH + totalPagibig;
+                javaGui.totaldeducfield.setText(String.format("%.2f",total));
 
-                int total = totalsss + totalPH + totalPagibig;
+                // netpay
+                double taxtotal = Double.parseDouble(javaGui.taxfield.getText());
+                double netTotal = gross - total - taxtotal;
+                javaGui.netfield.setText(String.format("%.2f",netTotal));
 
-                javaGui.totaldeducfield.setText(String.valueOf(total));
 
 
-                int netTotal = gross - total;
-                javaGui.netfield.setText(String.valueOf(netTotal));
             }
         });
 
