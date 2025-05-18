@@ -9,7 +9,9 @@ public class Main {
         ResultGui2 resultGui2 = new ResultGui2("List Table");
        // AttendanceUi3 Test = new AttendanceUi3("Attendance");
 
+        //wla pa selection nga may na tabo
         final int[] selectedRowIndex = {-1};
+
 
         javaGui.getClearButton().addActionListener(e -> {
             if (!javaGui.getNameField().getText().trim().isEmpty() ||
@@ -88,6 +90,9 @@ public class Main {
 
                     JOptionPane.showMessageDialog(javaGui, "Person Deleted!");
                     javaGui.getClearButton().doClick();
+                }else{
+                    //wla ka may ging select
+                    JOptionPane.showMessageDialog(javaGui, "No Person To Delete");
                 }
             }
         });
@@ -97,9 +102,11 @@ public class Main {
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 int selectedRow = resultGui2.table.getSelectedRow();
                 if (selectedRow != -1) {
-                    selectedRowIndex[0] = selectedRow;  // <--- set selected row index here
+                    //selecting index
+                    selectedRowIndex[0] = selectedRow;
 
-                    if (e.getClickCount() == 2) { // double-click
+                    //if double click then ma balik iya mga file sa javagui
+                    if (e.getClickCount() == 2) {
                         Person p = resultGui2.model.get(selectedRow);
                         Deduction d = resultGui2.model2.get(selectedRow);
                         Total t = resultGui2.model3.get(selectedRow);
@@ -126,11 +133,12 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 int row = selectedRowIndex[0];
                 if (row == -1) {
+                    //if wla unod
                     JOptionPane.showMessageDialog(javaGui, "Please select a record first to update.");
                     return;
                 }
 
-                // Retrieve updated values from fields
+                // trim means no more space ukson niya ang mga spaces
                 String fullName = javaGui.getNameField().getText().trim();
                 String[] names = fullName.split(" ", 2);
                 String first = names.length > 0 ? names[0] : "";
@@ -144,7 +152,7 @@ public class Main {
                 String deduc = javaGui.getTotalDeducField().getText().trim();
                 String net = javaGui.getNetField().getText().trim();
 
-                // Validate fields
+                // if wla unod
                 if (first.isEmpty() || position.isEmpty() || salary.isEmpty() ||
                         sss.isEmpty() || philHealth.isEmpty() || pagibig.isEmpty() ||
                         gross.isEmpty() || deduc.isEmpty() || net.isEmpty()) {
@@ -157,15 +165,16 @@ public class Main {
                 Deduction updatedDeduction = new Deduction(sss, philHealth, pagibig);
                 Total updatedTotal = new Total(gross, deduc, net);
 
-                // Update models at the selected row
+
                 resultGui2.model.update(row, updatedPerson);
                 resultGui2.model2.update(row, updatedDeduction);
                 resultGui2.model3.update(row, updatedTotal);
 
                 JOptionPane.showMessageDialog(javaGui, "Record updated!");
 
-                // Clear fields and reset selection
+
                 javaGui.getClearButton().doClick();
+                //reset
                 selectedRowIndex[0] = -1;
             }
         });
