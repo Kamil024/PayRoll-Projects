@@ -9,6 +9,7 @@ public class AttendanceFrame extends JFrame {
     GridBagLayout layout;
     Container container;
 
+
     JLabel id, totalP, totalA, totalL;
     JTextField idField;
     JButton present, absent, onLeave;
@@ -29,6 +30,8 @@ public class AttendanceFrame extends JFrame {
         layout = new GridBagLayout();
         container = this.getContentPane();
         container.setLayout(layout);
+
+        container.setBackground(new Color(0, 0, 64));
 
         model = new AttendanceTableModel();
         table = new JTable(model);
@@ -54,6 +57,12 @@ public class AttendanceFrame extends JFrame {
         present.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (idField.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter an ID first.", "Missing ID", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
                 if (dayCounter < 30) {
                     dayCounter++;
                     presentCount++;
@@ -68,6 +77,12 @@ public class AttendanceFrame extends JFrame {
         absent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (idField.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter an ID first.", "Missing ID", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
                 if (dayCounter < 30) {
                     dayCounter++;
                     absentCount++;
@@ -82,6 +97,12 @@ public class AttendanceFrame extends JFrame {
         onLeave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (idField.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter an ID first.", "Missing ID", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
                 if (dayCounter < 30) {
                     dayCounter++;
                     leaveCount++;
@@ -92,6 +113,11 @@ public class AttendanceFrame extends JFrame {
                 }
             }
         });
+
+        id.setForeground(Color.WHITE);
+        totalP.setForeground(Color.WHITE);
+        totalA.setForeground(Color.WHITE);
+        totalL.setForeground(Color.WHITE);
 
         addtoCon(id,0,0,1,1);
         addtoCon(idField,1,0,1,1);
