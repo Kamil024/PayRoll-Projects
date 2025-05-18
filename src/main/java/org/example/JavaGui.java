@@ -34,7 +34,7 @@ public class JavaGui extends JFrame {
         grosspay = new JLabel("Gross Pay:");
         totalDeduction = new JLabel("Total Deduction:");
         netpay = new JLabel("Net Pay:");
-        tax = new JLabel("Philippine Tax:");
+        tax = new JLabel("Philippine Tax %:");
 
 
         namefield = new JTextField(15);

@@ -22,8 +22,15 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "You must complete 30 days before calculating gross pay.");
                     return;
                 }
+
+
                 double gross = 0;
 
+                double taxtotal = Double.parseDouble(javaGui.taxfield.getText());
+                if (taxtotal < 0 || taxtotal > 100) {
+                    JOptionPane.showMessageDialog(null, "Tax percentage must be between 0 and 100.");
+                    return;
+                }
 
                 try {
                     // gross pay
@@ -35,20 +42,24 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "Please enter a valid daily rate.");
                 }
 
+
                 // total deduction
                 double totalsss = Double.parseDouble(javaGui.sssfield.getText());
                 double totalPH = Double.parseDouble(javaGui.philHfield.getText());
                 double totalPagibig = Double.parseDouble(javaGui.pagibigfield.getText());
-                double total = totalsss + totalPH + totalPagibig;
+
+
+                double taxAmount = (taxtotal/ 100.0) * gross;
+
+                double total = totalsss + totalPH + totalPagibig + taxAmount;
                 javaGui.totaldeducfield.setText(String.format("%.2f",total));
 
                 // netpay
-                double taxtotal = Double.parseDouble(javaGui.taxfield.getText());
-                double netTotal = gross - total - taxtotal;
+
+                double netTotal = gross - total;
                 javaGui.netfield.setText(String.format("%.2f",netTotal));
 
-
-
+                
             }
         });
 
