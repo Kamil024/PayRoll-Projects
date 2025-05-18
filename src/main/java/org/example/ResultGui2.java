@@ -27,6 +27,8 @@ public class ResultGui2 extends JFrame {
 
     JButton deleteButton;
 
+    JPanel TablePanel;
+
     public ResultGui2(String title){
         this.setTitle(title);
         model = new Tablee();
@@ -50,10 +52,15 @@ public class ResultGui2 extends JFrame {
         jScrollPane4 = SmallerTime(table4);
 
         deleteButton = new JButton("Delete");
-        panel = new JPanel();
+        panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBackground(new Color(0, 0, 64));
+
         panel.add(deleteButton);
 
+        TablePanel = new JPanel();
+        TablePanel.add(jScrollPane);
+        TablePanel.add(jScrollPane2);
+        TablePanel.add(jScrollPane3);
 
         layout = new GridBagLayout();
         container = this.getContentPane();
@@ -62,12 +69,15 @@ public class ResultGui2 extends JFrame {
         //adding bg
         container.setBackground(new Color(0, 0, 64));
 
-        addtoCon(jScrollPane,0,0,1,1);
-        addtoCon(jScrollPane2,1,0,1,1);
-        addtoCon(jScrollPane3,2,0,1,1);
+//        addtoCon(jScrollPane,0,0,1,1);
+//        addtoCon(jScrollPane2,1,0,1,1);
+//        addtoCon(jScrollPane3,2,0,1,1);
 
-        addtoCon(jScrollPane4,3,0,1,1);
-        addtoCon(panel,1,1,1,1);
+          addtoCon(TablePanel,0,0,1,1);
+
+        //addtoCon(jScrollPane4,3,0,1,1);
+
+        addtoCon(panel,0,1,1,1);
 
         this.setVisible(true);
         this.pack();

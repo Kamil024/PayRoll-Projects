@@ -30,6 +30,23 @@ public class TabTotal extends AbstractTableModel {
         return columns.length;
     }
 
+    public void remove(int index) {
+        person.remove(index);
+        fireTableDataChanged();
+    }
+
+    public Total get(int index) {
+        return person.get(index);
+    }
+
+
+    public void update(int index, Total updatedTotal) {
+        if(index >= 0 && index < person.size()) {
+            person.set(index, updatedTotal);
+            fireTableDataChanged();
+        }
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Total po = person.get(rowIndex);

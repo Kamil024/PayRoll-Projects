@@ -30,6 +30,11 @@ public class TabHours extends AbstractTableModel {
         return columns.length;
     }
 
+    public void remove(int index) {
+        person.remove(index);
+        fireTableDataChanged();
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         HoursWork po = person.get(rowIndex);
