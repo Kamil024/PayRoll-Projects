@@ -12,6 +12,7 @@ public class AttendanceFrame extends JFrame {
     JLabel monthLabel;
     JLabel yearLabel;
 
+
     JTextField idField;
     JTextField yearField;
 
@@ -33,6 +34,7 @@ public class AttendanceFrame extends JFrame {
 
     JTextField in, out;
 
+    JButton Add;
     public AttendanceFrame(String title) {
         this.setTitle(title);
         layout = new GridBagLayout();
@@ -76,24 +78,30 @@ public class AttendanceFrame extends JFrame {
         onLeave = new JButton("Late");
         clear = new JButton("Clear");
 
+        Add = new JButton("Add");
 
         Dimension buttonSize = new Dimension(100, 30);
         present.setPreferredSize(buttonSize);
         absent.setPreferredSize(buttonSize);
         onLeave.setPreferredSize(buttonSize);
         clear.setPreferredSize(buttonSize);
+        Add.setPreferredSize(buttonSize);
 
-
+        //Add = new JButton("Add");
         buttons = new JPanel();
-        buttons.add(present);
-        buttons.add(absent);
-        buttons.add(onLeave);
+//        buttons.add(present);
+//        buttons.add(absent);
+//        buttons.add(onLeave);
+        buttons.add(Add);
         buttons.add(clear);
         buttons.setBackground(new Color(0,0,64));
 
 
         clear.addActionListener(e -> {
             idField.setText("");
+            in.setText("");
+            out.setText("");
+            yearField.setText("");
             dayCounter = 0;
             presentCount = 0;
             absentCount = 0;
@@ -104,7 +112,7 @@ public class AttendanceFrame extends JFrame {
             JOptionPane.showMessageDialog(null, "All data has been cleared successfully.", "Cleared", JOptionPane.INFORMATION_MESSAGE);
         });
 
-        present.addActionListener(e -> {
+        Add.addActionListener(e -> {
             if (idField.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter an ID first.", "Missing ID", JOptionPane.WARNING_MESSAGE);
                 return;
