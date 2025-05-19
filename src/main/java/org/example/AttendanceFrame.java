@@ -11,6 +11,10 @@ public class AttendanceFrame extends JFrame {
 
 
     JLabel id, totalP, totalA, totalL;
+
+
+    JLabel monthLabel;
+    JLabel yearLabel;         // year label
     JTextField idField;
     JButton present, absent, onLeave;
 
