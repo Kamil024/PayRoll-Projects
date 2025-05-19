@@ -28,6 +28,10 @@ public class ResultGui2 extends JFrame {
     JTable table4;
     JScrollPane jScrollPane4;
 
+    EmpoTable model5;
+    JTable table5;
+    JScrollPane jScrollPane5;
+
     JPanel panel;
 
     JButton deleteButton;
@@ -56,6 +60,11 @@ public class ResultGui2 extends JFrame {
         jScrollPane4 = new JScrollPane(table4);
         jScrollPane4 = SmallerTime(table4);
 
+        model5 = new EmpoTable();
+        table5 = new JTable(model5);
+        jScrollPane5 = new JScrollPane(table5);
+        jScrollPane5 = createScrollPaneWithStyle(table5);
+
         deleteButton = new JButton("Delete");
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBackground(new Color(0, 0, 64));
@@ -63,9 +72,12 @@ public class ResultGui2 extends JFrame {
         panel.add(deleteButton);
 
         TablePanel = new JPanel();
+
+        TablePanel.add(jScrollPane5);
         TablePanel.add(jScrollPane);
         TablePanel.add(jScrollPane2);
         TablePanel.add(jScrollPane3);
+
 
         layout = new GridBagLayout();
         container = this.getContentPane();

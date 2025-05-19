@@ -36,6 +36,7 @@ public class Tablee extends AbstractTableModel {
     }
 
     public Person get(int index) {
+
         return person.get(index);
     }
 

@@ -3,16 +3,17 @@ package org.example;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class Tablee extends AbstractTableModel {
-    ArrayList<Person> person;
+public class EmpoTable extends AbstractTableModel {
 
-    String[] columns ={"Name" , "Position", "Basic Salary"};
-    public Tablee(){
+    ArrayList<Employee> person;
+
+    String[] columns ={"ID Number" , "date", "Check in", "Check out"};
+    public EmpoTable(){
         person = new ArrayList<>();
-        //person.add(new Person("John ", "Paul", "Janitor", 20000));
+
     }
 
-    public void adding(Person student){
+    public void adding(Employee student){
         person.add(student);
         fireTableDataChanged();
     }
@@ -35,24 +36,34 @@ public class Tablee extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public Person get(int index) {
+    public Employee get(int index) {
+
         return person.get(index);
     }
 
+    public void update(int index, Employee updatedPerson) {
+        if(index >= 0 && index < person.size()) {
+            person.set(index, updatedPerson);
+            fireTableDataChanged();
+        }
+    }
 
 
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Person po = person.get(rowIndex);
+        Employee po = person.get(rowIndex);
 
         if(columnIndex==0){
-            return po.getFirst() + " " + po.getLast();
+            return po.getID();
         }else if(columnIndex ==1) {
-            return po.getPosition();
+            return po.getMonth() + " " + po.getDay() + " " + po.getYear();
+        }else if (columnIndex ==2){
+            return po.getCheckin();
         }else{
-            return po.getSalary();
+            return po.getCheckout();
         }
 
     }
+
 }
