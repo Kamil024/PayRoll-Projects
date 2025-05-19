@@ -41,7 +41,7 @@ public class Main {
                     return;
                 }
 
-                try {
+
                     double totalSSS = Double.parseDouble(javaGui.sssfield.getText());
                     double totalPH = Double.parseDouble(javaGui.philHfield.getText());
                     double totalPagibig = Double.parseDouble(javaGui.pagibigfield.getText());
@@ -53,9 +53,7 @@ public class Main {
 
                     double netPay = gross - totalDeductions;
                     javaGui.netfield.setText(String.format("%.2f", netPay));
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Please enter valid numeric values in all deduction fields.");
-                }
+
             }
         });
 

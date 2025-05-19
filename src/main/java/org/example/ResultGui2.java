@@ -110,7 +110,7 @@ public class ResultGui2 extends JFrame {
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(20);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(350, 350));
+        scrollPane.setPreferredSize(new Dimension(300, 350));
         return scrollPane;
     }
     private JScrollPane SmallerTime(JTable table) {

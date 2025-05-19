@@ -51,6 +51,11 @@ public class JavaGui extends JFrame {
         this.grossfield.setEditable(false);
         this.totaldeducfield.setEditable(false);
         this.netfield.setEditable(false);
+        this.sssfield.setEditable(false);
+        this.philHfield.setEditable(false);
+        this.pagibigfield.setEditable(false);
+        this.taxfield.setEditable(false);
+
 
         layout = new GridBagLayout();
         container = this.getContentPane();
@@ -135,21 +140,23 @@ public class JavaGui extends JFrame {
         addtoCon(posfield, 1, 1, 1, 1);
         addtoCon(basicSalary, 0, 2, 1, 1);
         addtoCon(basicSfield, 1, 2, 1, 1);
-        addtoCon(deductions, 0, 3, 1, 1);
-        addtoCon(sss, 0, 4, 1, 1);
-        addtoCon(sssfield, 1, 4, 1, 1);
-        addtoCon(philH, 0, 5, 1, 1);
-        addtoCon(philHfield, 1, 5, 1, 1);
-        addtoCon(pagibig, 0, 6, 1, 1);
-        addtoCon(pagibigfield, 1, 6, 1, 1);
-        addtoCon(tax,0,7,1,1);
-        addtoCon(taxfield,1,7,1,1);
-        addtoCon(calculate, 0, 8, 1, 1);
-        addtoCon(clear, 1, 8, 1, 1);
-        addtoCon(grosspay, 0, 9, 1, 1);
-        addtoCon(grossfield, 1, 9, 1, 1);
-        addtoCon(totalDeduction, 0, 10, 1, 1);
-        addtoCon(totaldeducfield, 1, 10, 1, 1);
+        addtoCon(calculate, 0, 3, 1, 1);
+        addtoCon(clear, 1, 3, 1, 1);
+
+        addtoCon(deductions, 0, 4, 1, 1);
+        addtoCon(sss, 0, 5, 1, 1);
+        addtoCon(sssfield, 1, 5, 1, 1);
+        addtoCon(philH, 0, 6, 1, 1);
+        addtoCon(philHfield, 1, 6, 1, 1);
+        addtoCon(pagibig, 0, 7, 1, 1);
+        addtoCon(pagibigfield, 1, 7, 1, 1);
+        addtoCon(tax,0,8,1,1);
+        addtoCon(taxfield,1,8,1,1);
+
+        addtoCon(grosspay, 0, 10, 1, 1);
+        addtoCon(grossfield, 1, 10, 1, 1);
+        addtoCon(totalDeduction, 0, 9, 1, 1);
+        addtoCon(totaldeducfield, 1, 9, 1, 1);
         addtoCon(netpay, 0, 11, 1, 1);
         addtoCon(netfield, 1, 11, 1, 1);
         addtoCon(add, 0, 12, 1, 1);
