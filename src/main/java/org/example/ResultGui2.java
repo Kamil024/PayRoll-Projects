@@ -72,6 +72,7 @@ public class ResultGui2 extends JFrame {
 //        addtoCon(jScrollPane,0,0,1,1);
 //        addtoCon(jScrollPane2,1,0,1,1);
 //        addtoCon(jScrollPane3,2,0,1,1);
+        //haha
 
           addtoCon(TablePanel,0,0,1,1);
 
