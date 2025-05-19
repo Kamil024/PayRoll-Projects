@@ -18,6 +18,13 @@ public class AttendanceTableModel extends AbstractTableModel {
     }
 
 
+    //clearing the data
+    public void clearData() {
+        keys.clear();
+        fireTableDataChanged();
+    }
+
+
     @Override
     public int getRowCount() {
         return keys.size();
