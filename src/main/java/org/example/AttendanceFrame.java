@@ -34,7 +34,7 @@ public class AttendanceFrame extends JFrame {
 
     JTextField in, out;
 
-    JButton Add;
+    JButton Add, Save;
     public AttendanceFrame(String title) {
         this.setTitle(title);
         layout = new GridBagLayout();
@@ -79,6 +79,7 @@ public class AttendanceFrame extends JFrame {
         clear = new JButton("Clear");
 
         Add = new JButton("Add");
+        Save = new JButton("Save");
 
         Dimension buttonSize = new Dimension(100, 30);
         present.setPreferredSize(buttonSize);
@@ -86,6 +87,7 @@ public class AttendanceFrame extends JFrame {
         onLeave.setPreferredSize(buttonSize);
         clear.setPreferredSize(buttonSize);
         Add.setPreferredSize(buttonSize);
+        Save.setPreferredSize(buttonSize);
 
         //Add = new JButton("Add");
         buttons = new JPanel();
@@ -202,6 +204,8 @@ public class AttendanceFrame extends JFrame {
         addtoCon(totalP, 0, 7, 1, 1);
         addtoCon(totalA, 0, 8, 1, 1);
         addtoCon(totalL, 0, 9, 1, 1);
+
+        addtoCon(Save,0,10,1,1);
 
         this.setVisible(true);
         this.pack();

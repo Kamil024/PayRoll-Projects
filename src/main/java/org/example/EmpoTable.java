@@ -54,16 +54,19 @@ public class EmpoTable extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Employee po = person.get(rowIndex);
 
-        if(columnIndex==0){
+        if (columnIndex == 0) {
             return po.getID();
-        }else if(columnIndex ==1) {
-            return po.getMonth() + " " + po.getDay() + " " + po.getYear();
-        }else if (columnIndex ==2){
+        } else if (columnIndex == 1) {
+            String formattedDate = String.format("%02d/%02d/%s",
+                    Integer.parseInt(po.getMonth()),
+                    Integer.parseInt(po.getDay()),
+                    po.getYear());
+            return formattedDate;
+        } else if (columnIndex == 2) {
             return po.getCheckin();
-        }else{
+        } else {
             return po.getCheckout();
         }
-
     }
 
 }

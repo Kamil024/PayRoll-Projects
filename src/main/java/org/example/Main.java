@@ -13,6 +13,8 @@ public class Main {
         //wla pa selection nga may na tabo
         final int[] selectedRowIndex = {-1};
 
+
+        //ahhhh
         javaGui.calculate.addActionListener(e -> {
             try {
                 double dailySalary = Double.parseDouble(javaGui.basicSfield.getText());
