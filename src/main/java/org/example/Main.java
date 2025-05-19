@@ -19,7 +19,7 @@ public class Main {
                 double monthlySalary = dailySalary * 22; // Assuming 22 working days per month
                 double annualSalary = monthlySalary * 12;
 
-                // SSS
+                // SSSComp
                 double sssBase = Math.min(35000, Math.max(5000, monthlySalary));
                 double sssEmployee = sssBase * 0.05;
 
