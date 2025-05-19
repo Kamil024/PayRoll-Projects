@@ -8,7 +8,7 @@ public class JavaGui extends JFrame {
     Container container;
 
     JLabel name, basicSalary, position, deductions, sss, philH,
-            pagibig, grosspay, totalDeduction, netpay, tax;
+            pagibig, grosspay, totalDeduction, netpay, tax, paylabel;
     JTextField namefield, posfield, basicSfield, sssfield, philHfield, pagibigfield,
             grossfield, totaldeducfield, netfield, taxfield;
     JButton calculate, clear, add, update, delete;
@@ -35,6 +35,7 @@ public class JavaGui extends JFrame {
         totalDeduction = new JLabel("Total Deduction:");
         netpay = new JLabel("Net Pay:");
         tax = new JLabel("Philippine Tax:");
+        paylabel = new JLabel("Total Pay");
 
 
         namefield = new JTextField(15);
@@ -77,6 +78,7 @@ public class JavaGui extends JFrame {
         totalDeduction.setForeground(Color.WHITE);
         netpay.setForeground(Color.WHITE);
         tax.setForeground(Color.WHITE);
+        paylabel.setForeground(Color.WHITE);
 
         //fix font
         Font bigFont = new Font("Arial", Font.PLAIN, 16);
@@ -93,6 +95,7 @@ public class JavaGui extends JFrame {
         totalDeduction.setFont(bigFont);
         netpay.setFont(bigFont);
         tax.setFont(bigFont);
+        paylabel.setFont(bigFont);
 
         //font big for text field
         namefield.setFont(bigFont);
@@ -153,14 +156,18 @@ public class JavaGui extends JFrame {
         addtoCon(tax,0,8,1,1);
         addtoCon(taxfield,1,8,1,1);
 
-        addtoCon(grosspay, 0, 10, 1, 1);
-        addtoCon(grossfield, 1, 10, 1, 1);
+
         addtoCon(totalDeduction, 0, 9, 1, 1);
         addtoCon(totaldeducfield, 1, 9, 1, 1);
-        addtoCon(netpay, 0, 11, 1, 1);
-        addtoCon(netfield, 1, 11, 1, 1);
-        addtoCon(add, 0, 12, 1, 1);
-        addtoCon(update, 1, 12, 1, 1);
+        addtoCon(paylabel,0,10,1,1);
+        addtoCon(grosspay, 0, 11, 1, 1);
+        addtoCon(grossfield, 1, 11, 1, 1);
+
+
+        addtoCon(netpay, 0, 12, 1, 1);
+        addtoCon(netfield, 1, 12, 1, 1);
+        addtoCon(add, 0, 13, 1, 1);
+        addtoCon(update, 1, 13, 1, 1);
 
         //dpat wla dell
         //addtoCon(delete, 0, 12, 2, 1);

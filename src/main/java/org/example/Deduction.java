@@ -1,9 +1,10 @@
 package org.example;
 
-public class    Deduction {
+public class Deduction {
     private String sss;
     private String philhealth;
     private String pagibig;
+
 
     public Deduction(String sss, String philhealth, String pagibig) {
         this.sss = sss;

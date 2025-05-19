@@ -13,49 +13,112 @@ public class Main {
         //wla pa selection nga may na tabo
         final int[] selectedRowIndex = {-1};
 
+        javaGui.calculate.addActionListener(e -> {
+            try {
+                double dailySalary = Double.parseDouble(javaGui.basicSfield.getText());
+                double monthlySalary = dailySalary * 22; // Assuming 22 working days per month
+                double annualSalary = monthlySalary * 12;
 
+                // SSS
+                double sssBase = Math.min(35000, Math.max(5000, monthlySalary));
+                double sssEmployee = sssBase * 0.05;
 
-        javaGui.calculate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (attendanceFrame.dayCounter < 30) {
-                    JOptionPane.showMessageDialog(null, "You must complete 30 days before calculating gross pay.");
-                    return;
+                // PhilHealth
+                double philHealthBase = Math.min(100000, Math.max(10000, monthlySalary));
+                double philHealthEmployee = philHealthBase * 0.025;
+
+                // PAG-IBIG
+                double pagibigBase = Math.min(10000, monthlySalary);
+                double pagibigEmployee = monthlySalary >= 5000 ? pagibigBase * 0.02 : 0;
+
+                // BIR Withholding Tax
+                double withholdingTax = 0;
+                if (annualSalary <= 250000) {
+                    withholdingTax = 0;
+                } else if (annualSalary <= 400000) {
+                    double y = annualSalary - 250000;
+                    double z = y * 0.15;
+                    withholdingTax = z / 12;
+                } else if (annualSalary <= 800000) {
+                    double y = annualSalary - 400000;
+                    double z = 22500 + (y * 0.20);
+                    withholdingTax = z / 12;
+                } else if (annualSalary <= 2000000) {
+                    double y = annualSalary - 800000;
+                    double z = 102500 + (y * 0.25);
+                    withholdingTax = z / 12;
+                } else if (annualSalary <= 8000000) {
+                    double y = annualSalary - 2000000;
+                    double z = 402500 + (y * 0.30);
+                    withholdingTax = z / 12;
+                } else {
+                    double y = annualSalary - 8000000;
+                    double z = 2202500 + (y * 0.35);
+                    withholdingTax = z / 12;
                 }
-                double taxPercent = Double.parseDouble(javaGui.taxfield.getText());
-                // if tax is out of range
-                if (taxPercent < 0 || taxPercent > 100) {
-                    JOptionPane.showMessageDialog(null, "Tax percentage must be between 0 and 100.");
-                    return;
-                }
 
-                double gross = 0;
+                // Total deductions and net pay
+                double totalDeduction = sssEmployee + philHealthEmployee + pagibigEmployee + withholdingTax;
+                double netPay = monthlySalary - totalDeduction;
 
-                try {
-                    int present = attendanceFrame.presentCount + attendanceFrame.leaveCount;
-                    double basicS = Double.parseDouble(javaGui.basicSfield.getText());
-                    gross = present * basicS;
-                    javaGui.grossfield.setText(String.format("%.2f", gross));
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid daily rate.");
-                    return;
-                }
+                // Set output to text fields
+                javaGui.sssfield.setText(String.format("%.2f", sssEmployee));
+                javaGui.philHfield.setText(String.format("%.2f", philHealthEmployee));
+                javaGui.pagibigfield.setText(String.format("%.2f", pagibigEmployee));
+                javaGui.taxfield.setText(String.format("%.2f", withholdingTax));
+                javaGui.totaldeducfield.setText(String.format("%.2f", totalDeduction));
+                javaGui.grossfield.setText(String.format("%.2f", monthlySalary));
+                javaGui.netfield.setText(String.format("%.2f", netPay));
 
-
-                    double totalSSS = Double.parseDouble(javaGui.sssfield.getText());
-                    double totalPH = Double.parseDouble(javaGui.philHfield.getText());
-                    double totalPagibig = Double.parseDouble(javaGui.pagibigfield.getText());
-
-                    double taxAmount = (taxPercent / 100.0) * gross;
-
-                    double totalDeductions = totalSSS + totalPH + totalPagibig + taxAmount;
-                    javaGui.totaldeducfield.setText(String.format("%.2f", totalDeductions));
-
-                    double netPay = gross - totalDeductions;
-                    javaGui.netfield.setText(String.format("%.2f", netPay));
-
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid numeric Daily Salary.", "Input Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+
+
+
+//        javaGui.calculate.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (attendanceFrame.dayCounter < 30) {
+//                    JOptionPane.showMessageDialog(null, "You must complete 30 days before calculating gross pay.");
+//                    return;
+//                }
+//                double taxPercent = Double.parseDouble(javaGui.taxfield.getText());
+//                // if tax is out of range
+//                if (taxPercent < 0 || taxPercent > 100) {
+//                    JOptionPane.showMessageDialog(null, "Tax percentage must be between 0 and 100.");
+//                    return;
+//                }
+//
+//                double gross = 0;
+//
+//                try {
+//                    int present = attendanceFrame.presentCount + attendanceFrame.leaveCount;
+//                    double basicS = Double.parseDouble(javaGui.basicSfield.getText());
+//                    gross = present * basicS;
+//                    javaGui.grossfield.setText(String.format("%.2f", gross));
+//                } catch (NumberFormatException ex) {
+//                    JOptionPane.showMessageDialog(null, "Please enter a valid daily rate.");
+//                    return;
+//                }
+//
+//
+//                    double totalSSS = Double.parseDouble(javaGui.sssfield.getText());
+//                    double totalPH = Double.parseDouble(javaGui.philHfield.getText());
+//                    double totalPagibig = Double.parseDouble(javaGui.pagibigfield.getText());
+//
+//                    double taxAmount = (taxPercent / 100.0) * gross;
+//
+//                    double totalDeductions = totalSSS + totalPH + totalPagibig + taxAmount;
+//                    javaGui.totaldeducfield.setText(String.format("%.2f", totalDeductions));
+//
+//                    double netPay = gross - totalDeductions;
+//                    javaGui.netfield.setText(String.format("%.2f", netPay));
+//
+//            }
+//        });
 
 
         javaGui.getClearButton().addActionListener(e -> {
