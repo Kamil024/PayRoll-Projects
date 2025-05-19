@@ -9,7 +9,6 @@ public class AttendanceFrame extends JFrame {
 
     JLabel id, totalP, totalA, totalL;
 
-
     JLabel monthLabel;
     JLabel yearLabel;
 
@@ -17,7 +16,7 @@ public class AttendanceFrame extends JFrame {
     JTextField yearField;
 
     JComboBox<String> monthCombo;
-    JButton present, absent, onLeave;
+    JButton present, absent, onLeave, clear;
 
     AttendanceTableModel model;
     JTable table;
@@ -46,42 +45,52 @@ public class AttendanceFrame extends JFrame {
         table = new JTable(model);
         jScrollPane = createScrollPaneWithStyle(table);
 
-        // LABELS
+
         id = new JLabel("Identification Number:");
         totalP = new JLabel("Present Total:");
         totalA = new JLabel("Absent Total:");
         totalL = new JLabel("Total Leaves:");
         monthLabel = new JLabel("Month:");
-        yearLabel = new JLabel("Year:");     // new year label
+        yearLabel = new JLabel("Year:");
         Checkin = new JLabel("Time of Check in:");
         Checkout = new JLabel("Time of Check out");
 
-        // TEXTFIELDS
+
         idField = new JTextField(10);
-        yearField = new JTextField(5);       // year text field (default width 5)
-        yearField.setText("2025");            // default year
+        yearField = new JTextField(5);
+        yearField.setText("2025");
 
         in = new JTextField(10);
         out = new JTextField(10);
 
-        // MONTH COMBOBOX
+
         String[] months = {
                 "January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
         };
         monthCombo = new JComboBox<>(months);
 
-        // BUTTONS
+        //Buttons
         present = new JButton("Present");
         absent = new JButton("Absent");
         onLeave = new JButton("Late");
-        JButton clear = new JButton("Clear");
+        clear = new JButton("Clear");
+
+
+        Dimension buttonSize = new Dimension(100, 30);
+        present.setPreferredSize(buttonSize);
+        absent.setPreferredSize(buttonSize);
+        onLeave.setPreferredSize(buttonSize);
+        clear.setPreferredSize(buttonSize);
+
 
         buttons = new JPanel();
         buttons.add(present);
         buttons.add(absent);
         buttons.add(onLeave);
         buttons.add(clear);
+        buttons.setBackground(new Color(0,0,64));
+
 
         clear.addActionListener(e -> {
             idField.setText("");
@@ -149,19 +158,21 @@ public class AttendanceFrame extends JFrame {
             }
         });
 
-        // Add listener to update day limit when month or year changes
+
         monthCombo.addActionListener(e -> updateDayLimitOnMonthYearChange());
         yearField.addActionListener(e -> updateDayLimitOnMonthYearChange());
 
-        // Set label colors
+        // color
         id.setForeground(Color.WHITE);
         totalP.setForeground(Color.WHITE);
         totalA.setForeground(Color.WHITE);
         totalL.setForeground(Color.WHITE);
         monthLabel.setForeground(Color.WHITE);
         yearLabel.setForeground(Color.WHITE);
+        Checkin.setForeground(Color.WHITE);
+        Checkout.setForeground(Color.WHITE);
 
-        // Layout placements
+
         addtoCon(id, 0, 0, 1, 1);
         addtoCon(idField, 1, 0, 1, 1);
 
@@ -171,15 +182,18 @@ public class AttendanceFrame extends JFrame {
         addtoCon(yearLabel, 0, 2, 1, 1);
         addtoCon(yearField, 1, 2, 1, 1);
 
-        addtoCon(present, 0, 3, 1, 1);
-        addtoCon(absent, 1, 3, 1, 1);
-        addtoCon(onLeave, 0, 4, 1, 1);
-        addtoCon(clear, 1, 4, 1, 1);
+        addtoCon(Checkin, 0, 3, 1, 1);
+        addtoCon(in, 1, 3, 1, 1);
+        addtoCon(Checkout, 0, 4, 1, 1);
+        addtoCon(out, 1, 4, 1, 1);
 
-        addtoCon(jScrollPane, 0, 5, 2, 1);
-        addtoCon(totalP, 0, 6, 1, 1);
-        addtoCon(totalA, 0, 7, 1, 1);
-        addtoCon(totalL, 0, 8, 1, 1);
+
+        addtoCon(buttons, 0, 5, 2, 1);
+
+        addtoCon(jScrollPane, 0, 6, 2, 1);
+        addtoCon(totalP, 0, 7, 1, 1);
+        addtoCon(totalA, 0, 8, 1, 1);
+        addtoCon(totalL, 0, 9, 1, 1);
 
         this.setVisible(true);
         this.pack();
