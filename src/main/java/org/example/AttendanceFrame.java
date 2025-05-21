@@ -35,9 +35,11 @@ public class AttendanceFrame extends JFrame {
 
     JButton Add, Next;
     ResultGui2 resultGui2;
-    public AttendanceFrame(String title,ResultGui2 resultGui2) {
+    JavaGui javaGui;
+    public AttendanceFrame(String title,ResultGui2 resultGui2,JavaGui javaGui) {
         this.setTitle(title);
         this.resultGui2 = resultGui2;
+        this.javaGui = javaGui;
         resultGui2.setVisible(true);
 
         layout = new GridBagLayout();

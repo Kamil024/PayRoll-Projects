@@ -12,15 +12,23 @@ public class Main {
         ResultGui2 resultGui2 = new ResultGui2("List Table");
         resultGui2.setVisible(true);
 //
-//        JavaGui javaGui = new JavaGui("Payroll System",resultGui2);
-//        javaGui.setVisible(false);
+        String a = "";
+        String b = "";
+        String c = "";
+        String d = "";
+        String e = "";
+        String f = "";
+        String g = "";
+        String h = "";
+        JavaGui javaGui = new JavaGui("Payroll System",resultGui2,a,b,c,d,e,f);
+        javaGui.setVisible(false);
 
 
 
        // AttendanceUi3 Test = new AttendanceUi3("Attendance");
-        //AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2);
+        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2,javaGui);
         //wla pa selection nga may na tabo
-//        final int[] selectedRowIndex = {-1};
+        final int[] selectedRowIndex = {-1};
 
 
         //ahhhh
@@ -233,35 +241,35 @@ public class Main {
 //            }
 //        });
 
-//        resultGui2.table.addMouseListener(new java.awt.event.MouseAdapter() {
-//            @Override
-//            public void mouseClicked(java.awt.event.MouseEvent e) {
-//                int selectedRow = resultGui2.table.getSelectedRow();
-//                if (selectedRow != -1) {
-//                    //selecting index
-//                    selectedRowIndex[0] = selectedRow;
-//
-//                    //if double click then ma balik iya mga file sa javagui
-//                    if (e.getClickCount() == 2) {
-//                        Person p = resultGui2.model.get(selectedRow);
-//                        Deduction d = resultGui2.model2.get(selectedRow);
-//                        Total t = resultGui2.model3.get(selectedRow);
-//
-//                        javaGui.getNameField().setText(p.getFirst() + " " + p.getLast());
-//                        javaGui.getPosField().setText(p.getPosition());
-//                        javaGui.getBasicSField().setText(p.getSalary());
-//
-//                        javaGui.getSssField().setText(d.getSss());
-//                        javaGui.getPhilHField().setText(d.getPhilhealth());
-//                        javaGui.getPagibigField().setText(d.getPagibig());
-//
-//                        javaGui.getGrossField().setText(t.getGrossPay());
-//                        javaGui.getTotalDeducField().setText(t.getTotalDeduc());
-//                        javaGui.getNetField().setText(t.getNetPay());
-//                    }
-//                }
-//            }
-//        });
+        resultGui2.table.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int selectedRow = resultGui2.table.getSelectedRow();
+                if (selectedRow != -1) {
+                    //selecting index
+                    selectedRowIndex[0] = selectedRow;
+
+                    //if double click then ma balik iya mga file sa javagui
+                    if (e.getClickCount() == 2) {
+                        Person p = resultGui2.model.get(selectedRow);
+                        Deduction d = resultGui2.model2.get(selectedRow);
+                        Total t = resultGui2.model3.get(selectedRow);
+
+                        javaGui.getNameField().setText(p.getFirst() + " " + p.getLast());
+                        javaGui.getPosField().setText(p.getPosition());
+                        javaGui.getBasicSField().setText(p.getSalary());
+
+                        javaGui.getSssField().setText(d.getSss());
+                        javaGui.getPhilHField().setText(d.getPhilhealth());
+                        javaGui.getPagibigField().setText(d.getPagibig());
+
+                        javaGui.getGrossField().setText(t.getGrossPay());
+                        javaGui.getTotalDeducField().setText(t.getTotalDeduc());
+                        javaGui.getNetField().setText(t.getNetPay());
+                    }
+                }
+            }
+        });
 //
 //
 //        javaGui.update.addActionListener(new AbstractAction() {

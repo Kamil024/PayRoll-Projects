@@ -26,7 +26,7 @@ public class JavaGui extends JFrame {
 //        ResultGui2 resultGui2 = new ResultGui2("List Table");
 //       resultGui2.setVisible(false);
 
-        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2);
+        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2,this);
         attendanceFrame.setVisible(false);
 
         // BUTTONS
@@ -284,27 +284,27 @@ public class JavaGui extends JFrame {
                     getTotalDeducField().getText().trim().isEmpty() ||
                     getNetField().getText().trim().isEmpty()) {
                 // kung indi empty nga miski isa then go to clear
-                getNameField().setText("");
-                getPosField().setText("");
-                getBasicSField().setText("");
-                getSssField().setText("");
-                getPhilHField().setText("");
-                getPagibigField().setText("");
-                getGrossField().setText("");
-                getTotalDeducField().setText("");
-                getNetField().setText("");
-                taxfield.setText("");
+                JOptionPane.showMessageDialog(null, "All fields are already empty!", "Warning", JOptionPane.WARNING_MESSAGE);
 
                 System.out.println(ID);
-                System.out.println(Year);
-                System.out.println(Day);
-                System.out.println(Checkin);
-                System.out.println(Checkout);
-                System.out.println(Month);
+//                System.out.println(Year);
+//                System.out.println(Day);
+//                System.out.println(Checkin);
+//                System.out.println(Checkout);
+//                System.out.println(Month);
 
             } else {
                 // if may isa or tnan empty warning
-                JOptionPane.showMessageDialog(null, "All fields are already empty!", "Warning", JOptionPane.WARNING_MESSAGE);
+                namefield.setText("");
+                posfield.setText("");
+                basicSfield.setText("");
+                sssfield.setText("");
+                philHfield.setText("");
+                pagibigfield.setText("");
+                grossfield.setText("");
+                totaldeducfield.setText("");
+                netfield.setText("");
+                taxfield.setText("");
             }
         });
 
