@@ -2,19 +2,31 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class JavaGui extends JFrame {
     GridBagLayout layout;
     Container container;
 
+    private ResultGui2 resultGui2;
     JLabel name, basicSalary, position, deductions, sss, philH,
             pagibig, grosspay, totalDeduction, netpay, tax, paylabel;
     JTextField namefield, posfield, basicSfield, sssfield, philHfield, pagibigfield,
             grossfield, totaldeducfield, netfield, taxfield;
     JButton calculate, clear, add, update, delete;
 
-    public JavaGui(String title) {
+    JButton BackLog;
+
+    public JavaGui(String title,ResultGui2 resultGui2) {
         this.setTitle(title);
+
+        this.resultGui2 = resultGui2;
+//        resultGui2.setVisible(true);
+
+//        ResultGui2 resultGui2 = new ResultGui2("List Table");
+//       resultGui2.setVisible(false);
+        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG");
+        attendanceFrame.setVisible(false);
 
         // BUTTONS
         calculate = new JButton("Calculate Pay");
@@ -22,6 +34,8 @@ public class JavaGui extends JFrame {
         add = new JButton("Add");
         update = new JButton("Update");
         delete = new JButton("Delete");
+
+        BackLog = new JButton("Back");
 
 
         name = new JLabel("Employee Name:");
@@ -115,6 +129,7 @@ public class JavaGui extends JFrame {
         add.setFont(bigFont);
         update.setFont(bigFont);
         delete.setFont(bigFont);
+        BackLog.setFont(bigFont);
 
         //fix collor for buttons
         Color navyLight = new Color(0, 0, 180);
@@ -134,6 +149,9 @@ public class JavaGui extends JFrame {
 
         delete.setBackground(navyLight);
         delete.setForeground(whiteText);
+
+        BackLog.setBackground(navyLight);
+        BackLog.setForeground(whiteText);
 
 
 
@@ -169,6 +187,8 @@ public class JavaGui extends JFrame {
         addtoCon(add, 0, 13, 1, 1);
         addtoCon(update, 1, 13, 1, 1);
 
+        addtoCon(BackLog,0,14,1,1);
+
         //dpat wla dell
         //addtoCon(delete, 0, 12, 2, 1);
         this.setVisible(true);
@@ -177,6 +197,229 @@ public class JavaGui extends JFrame {
         //stop resize
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+
+
+
+        final int[] selectedRowIndex = {-1};
+
+        BackLog.addActionListener(e -> {
+            this.setVisible(false);
+            attendanceFrame.setVisible(true);
+        });
+
+        calculate.addActionListener(e -> {
+            try {
+                double dailySalary = Double.parseDouble(basicSfield.getText());
+                double monthlySalary = dailySalary * 22; // Assuming 22 working days per month
+                double annualSalary = monthlySalary * 12;
+
+                // SSSComp
+                double sssBase = Math.min(35000, Math.max(5000, monthlySalary));
+                double sssEmployee = sssBase * 0.05;
+
+                // PhilHealth
+                double philHealthBase = Math.min(100000, Math.max(10000, monthlySalary));
+                double philHealthEmployee = philHealthBase * 0.025;
+
+                // PAG-IBIG
+                double pagibigBase = Math.min(10000, monthlySalary);
+                double pagibigEmployee = monthlySalary >= 5000 ? pagibigBase * 0.02 : 0;
+
+                // BIR Withholding Tax
+                double withholdingTax = 0;
+                if (annualSalary <= 250000) {
+                    withholdingTax = 0;
+                } else if (annualSalary <= 400000) {
+                    double y = annualSalary - 250000;
+                    double z = y * 0.15;
+                    withholdingTax = z / 12;
+                } else if (annualSalary <= 800000) {
+                    double y = annualSalary - 400000;
+                    double z = 22500 + (y * 0.20);
+                    withholdingTax = z / 12;
+                } else if (annualSalary <= 2000000) {
+                    double y = annualSalary - 800000;
+                    double z = 102500 + (y * 0.25);
+                    withholdingTax = z / 12;
+                } else if (annualSalary <= 8000000) {
+                    double y = annualSalary - 2000000;
+                    double z = 402500 + (y * 0.30);
+                    withholdingTax = z / 12;
+                } else {
+                    double y = annualSalary - 8000000;
+                    double z = 2202500 + (y * 0.35);
+                    withholdingTax = z / 12;
+                }
+
+                // Total deductions and net pay
+                double totalDeduction = sssEmployee + philHealthEmployee + pagibigEmployee + withholdingTax;
+                double netPay = monthlySalary - totalDeduction;
+
+                // Set output to text fields
+                sssfield.setText(String.format("%.2f", sssEmployee));
+                philHfield.setText(String.format("%.2f", philHealthEmployee));
+                pagibigfield.setText(String.format("%.2f", pagibigEmployee));
+                taxfield.setText(String.format("%.2f", withholdingTax));
+                totaldeducfield.setText(String.format("%.2f", totalDeduction));
+                grossfield.setText(String.format("%.2f", monthlySalary));
+                netfield.setText(String.format("%.2f", netPay));
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid numeric Daily Salary.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        getClearButton().addActionListener(e -> {
+            if (getNameField().getText().trim().isEmpty() ||
+                    getPosField().getText().trim().isEmpty() ||
+                    getBasicSField().getText().trim().isEmpty() ||
+                    getSssField().getText().trim().isEmpty() ||
+                    getPhilHField().getText().trim().isEmpty() ||
+                    getPagibigField().getText().trim().isEmpty() ||
+                    getGrossField().getText().trim().isEmpty() ||
+                    getTotalDeducField().getText().trim().isEmpty() ||
+                    getNetField().getText().trim().isEmpty()) {
+                // kung indi empty nga miski isa then go to clear
+                getNameField().setText("");
+                getPosField().setText("");
+                getBasicSField().setText("");
+                getSssField().setText("");
+                getPhilHField().setText("");
+                getPagibigField().setText("");
+                getGrossField().setText("");
+                getTotalDeducField().setText("");
+                getNetField().setText("");
+                taxfield.setText("");
+            } else {
+                // if may isa or tnan empty warning
+                JOptionPane.showMessageDialog(null, "All fields are already empty!", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+
+        getAddButton().addActionListener(e -> {
+            String fullName = getNameField().getText().trim();
+            String[] names = fullName.split(" ", 2);
+            String first = names.length > 0 ? names[0] : "";
+            String last = names.length > 1 ? names[1] : "";
+            String position = getPosField().getText().trim();
+            String salary = getBasicSField().getText().trim();
+            String sss = getSssField().getText().trim();
+            String philHealth = getPhilHField().getText().trim();
+            String pagibig = getPagibigField().getText().trim();
+            String gross = getGrossField().getText().trim();
+            String deduc = getTotalDeducField().getText().trim();
+            String net = getNetField().getText().trim();
+
+            if (first.isEmpty() || position.isEmpty() || salary.isEmpty() ||
+                    sss.isEmpty() || philHealth.isEmpty() || pagibig.isEmpty() ||
+                    gross.isEmpty() || deduc.isEmpty() || net.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please fill in all fields.");
+                return;
+            }
+
+//            ResultGui2 resultGui2 = new ResultGui2("List Table");
+//            resultGui2.setVisible(false);
+//            AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG");
+//            attendanceFrame.setVisible(false);
+
+            int maxDays = attendanceFrame.getDaysInCurrentMonth();
+
+            if (attendanceFrame.dayCounter == maxDays) {
+                System.out.println(maxDays);
+                JOptionPane.showMessageDialog(null, "You must complete 30 days before calculating gross pay.");
+                return;
+            }
+
+
+            //no duplication
+
+            for (int i = 0; i < resultGui2.model.getRowCount(); i++) {
+                Person existing = resultGui2.model.get(i);
+                if (existing.getFirst().equalsIgnoreCase(first) && existing.getLast().equalsIgnoreCase(last)) {
+                    JOptionPane.showMessageDialog(null, "This person is already added.");
+                    return;
+                }
+            }
+
+            Employee employee = new Employee(
+                    attendanceFrame.idField.getText(), // ID from attendance
+                    String.valueOf(attendanceFrame.dayCounter), // Day count
+                    attendanceFrame.yearField.getText(), // Year
+                    attendanceFrame.monthCombo.getSelectedItem().toString(), // Month
+                    "", // Check-in time (if needed)
+                    ""  // Check-out time (if needed)
+            );
+
+            Person person = new Person(first, last, position, salary);
+            Deduction deduction = new Deduction(sss, philHealth, pagibig);
+            Total total = new Total(gross, deduc, net);
+
+            resultGui2.model5.adding(employee);
+            resultGui2.model.adding(person);
+            resultGui2.model2.adding(deduction);
+            resultGui2.model3.adding(total);
+
+            System.out.println(employee);
+
+            JOptionPane.showMessageDialog(null, "Person added!");
+            getClearButton().doClick();
+        });
+
+
+
+
+        update.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = selectedRowIndex[0];
+                if (row == -1) {
+                    //if wla unod
+                    JOptionPane.showMessageDialog(null, "Please select a record first to update.");
+                    return;
+                }
+
+                // trim means no more space ukson niya ang mga spaces
+                String fullName = getNameField().getText().trim();
+                String[] names = fullName.split(" ", 2);
+                String first = names.length > 0 ? names[0] : "";
+                String last = names.length > 1 ? names[1] : "";
+                String position = getPosField().getText().trim();
+                String salary = getBasicSField().getText().trim();
+                String sss = getSssField().getText().trim();
+                String philHealth = getPhilHField().getText().trim();
+                String pagibig = getPagibigField().getText().trim();
+                String gross = getGrossField().getText().trim();
+                String deduc = getTotalDeducField().getText().trim();
+                String net = getNetField().getText().trim();
+
+                // if wla unod
+                if (first.isEmpty() || position.isEmpty() || salary.isEmpty() ||
+                        sss.isEmpty() || philHealth.isEmpty() || pagibig.isEmpty() ||
+                        gross.isEmpty() || deduc.isEmpty() || net.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill in all fields.");
+                    return;
+                }
+
+                // Create updated objects
+                Person updatedPerson = new Person(first, last, position, salary);
+                Deduction updatedDeduction = new Deduction(sss, philHealth, pagibig);
+                Total updatedTotal = new Total(gross, deduc, net);
+
+
+                resultGui2.model.update(row, updatedPerson);
+                resultGui2.model2.update(row, updatedDeduction);
+                resultGui2.model3.update(row, updatedTotal);
+
+                JOptionPane.showMessageDialog(null, "Record updated!");
+
+
+                getClearButton().doClick();
+                //reset
+                selectedRowIndex[0] = -1;
+            }
+        });
     }
 
     public void addtoCon(Component component, int gridx, int gridy, int gridwidth, int gridheight) {

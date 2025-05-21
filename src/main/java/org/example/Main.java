@@ -6,8 +6,13 @@ import java.awt.event.ActionListener;
 
 public class Main {
     public static void main(String[] args) {
-        JavaGui javaGui = new JavaGui("Payroll System");
+
+
         ResultGui2 resultGui2 = new ResultGui2("List Table");
+        resultGui2.setVisible(true);
+
+        JavaGui javaGui = new JavaGui("Payroll System",resultGui2);
+        javaGui.setVisible(false);
        // AttendanceUi3 Test = new AttendanceUi3("Attendance");
         AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG");
         //wla pa selection nga may na tabo

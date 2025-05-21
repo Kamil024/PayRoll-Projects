@@ -48,6 +48,16 @@ public class EmpoTable extends AbstractTableModel {
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("EmpoTable{\n");
+        for (Employee e : person) {
+            builder.append(e.toString()).append("\n");
+        }
+        builder.append("}");
+        return builder.toString();
+    }
+
 
 
     @Override
