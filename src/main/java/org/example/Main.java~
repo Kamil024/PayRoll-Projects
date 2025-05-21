@@ -18,7 +18,7 @@ public class Main {
 
 
        // AttendanceUi3 Test = new AttendanceUi3("Attendance");
-        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2);
+        //AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2);
         //wla pa selection nga may na tabo
 //        final int[] selectedRowIndex = {-1};
 

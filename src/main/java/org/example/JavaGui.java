@@ -17,15 +17,16 @@ public class JavaGui extends JFrame {
 
     JButton BackLog;
 
-    public JavaGui(String title,ResultGui2 resultGui2) {
+    public JavaGui(String title,ResultGui2 resultGui2,String ID, String Month, String Year, String Day, String Checkin, String Checkout) {
         this.setTitle(title);
 
         this.resultGui2 = resultGui2;
-//        resultGui2.setVisible(true);
+        resultGui2.setVisible(false);
 
 //        ResultGui2 resultGui2 = new ResultGui2("List Table");
 //       resultGui2.setVisible(false);
-        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG");
+
+        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2);
         attendanceFrame.setVisible(false);
 
         // BUTTONS
@@ -200,7 +201,6 @@ public class JavaGui extends JFrame {
 
 
 
-
         final int[] selectedRowIndex = {-1};
 
         BackLog.addActionListener(e -> {
@@ -257,6 +257,9 @@ public class JavaGui extends JFrame {
                 double netPay = monthlySalary - totalDeduction;
 
                 // Set output to text fields
+
+
+
                 sssfield.setText(String.format("%.2f", sssEmployee));
                 philHfield.setText(String.format("%.2f", philHealthEmployee));
                 pagibigfield.setText(String.format("%.2f", pagibigEmployee));
@@ -291,6 +294,14 @@ public class JavaGui extends JFrame {
                 getTotalDeducField().setText("");
                 getNetField().setText("");
                 taxfield.setText("");
+
+                System.out.println(ID);
+                System.out.println(Year);
+                System.out.println(Day);
+                System.out.println(Checkin);
+                System.out.println(Checkout);
+                System.out.println(Month);
+
             } else {
                 // if may isa or tnan empty warning
                 JOptionPane.showMessageDialog(null, "All fields are already empty!", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -311,6 +322,7 @@ public class JavaGui extends JFrame {
             String gross = getGrossField().getText().trim();
             String deduc = getTotalDeducField().getText().trim();
             String net = getNetField().getText().trim();
+
 
             if (first.isEmpty() || position.isEmpty() || salary.isEmpty() ||
                     sss.isEmpty() || philHealth.isEmpty() || pagibig.isEmpty() ||
@@ -343,25 +355,21 @@ public class JavaGui extends JFrame {
                 }
             }
 
-            Employee employee = new Employee(
-                    attendanceFrame.idField.getText(), // ID from attendance
-                    String.valueOf(attendanceFrame.dayCounter), // Day count
-                    attendanceFrame.yearField.getText(), // Year
-                    attendanceFrame.monthCombo.getSelectedItem().toString(), // Month
-                    "", // Check-in time (if needed)
-                    ""  // Check-out time (if needed)
-            );
 
+
+            Employee employee = new Employee(ID,Day,Year,Month,Checkin,Checkout);
             Person person = new Person(first, last, position, salary);
             Deduction deduction = new Deduction(sss, philHealth, pagibig);
             Total total = new Total(gross, deduc, net);
 
-            resultGui2.model5.adding(employee);
+           // resultGui2.model5.adding(employee);
             resultGui2.model.adding(person);
             resultGui2.model2.adding(deduction);
             resultGui2.model3.adding(total);
+            resultGui2.model5.adding(employee);
 
-            System.out.println(employee);
+            //resultGui2.addData(person,deduction,total,employee);
+//            System.out.println(employee);
 
             JOptionPane.showMessageDialog(null, "Person added!");
             getClearButton().doClick();

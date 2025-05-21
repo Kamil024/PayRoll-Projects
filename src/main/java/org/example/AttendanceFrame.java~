@@ -38,8 +38,7 @@ public class AttendanceFrame extends JFrame {
     public AttendanceFrame(String title,ResultGui2 resultGui2) {
         this.setTitle(title);
         this.resultGui2 = resultGui2;
-        resultGui2.setVisible(true);
-
+        resultGui2.setVisible(false);
         layout = new GridBagLayout();
         container = this.getContentPane();
         container.setLayout(layout);

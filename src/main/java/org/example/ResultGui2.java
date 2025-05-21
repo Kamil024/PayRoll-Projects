@@ -65,6 +65,14 @@ public class ResultGui2 extends JFrame {
         jScrollPane5 = new JScrollPane(table5);
         jScrollPane5 = createScrollPaneWithStyle(table5);
 
+        setLayout(new BorderLayout());
+
+        add(jScrollPane5, BorderLayout.NORTH);
+        add(jScrollPane, BorderLayout.CENTER);
+        add(jScrollPane2, BorderLayout.EAST);
+        add(jScrollPane3, BorderLayout.SOUTH);
+
+
         deleteButton = new JButton("Delete");
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBackground(new Color(0, 0, 64));
@@ -101,6 +109,17 @@ public class ResultGui2 extends JFrame {
         //stop resize
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public void addData(Person person, Deduction deduction, Total total, Employee employee) {
+        model.adding(person);
+        model.fireTableDataChanged();
+        model2.adding(deduction);
+        model2.fireTableDataChanged();
+        model3.adding(total);
+        model3.fireTableDataChanged();
+        model5.adding(employee);
+        model5.fireTableDataChanged();
     }
 
     public void addtoCon(Container e, int x, int y, int wx, int wy){
