@@ -9,7 +9,8 @@ public class EmpoTable extends AbstractTableModel {
 
     ArrayList<Employee> person;
 
-    String[] columns = {"ID Number", "Date", "Check in", "Check out"};
+    // Added "Late" column
+    String[] columns = {"ID Number", "Date", "Present", "Absent", "Late"};
 
     public EmpoTable() {
         person = new ArrayList<>();
@@ -73,13 +74,32 @@ public class EmpoTable extends AbstractTableModel {
                     Integer.parseInt(po.getDay()),
                     po.getYear());
             return formattedDate;
-        } else if (columnIndex == 2) {
-            return po.getCheckin();
-        } else {
-            return po.getCheckout();
+        } else if (columnIndex == 2) { // Present
+            String checkin = po.getCheckin();
+            return (checkin != null && !checkin.isEmpty()) ? "Present" : "Absent";
+        } else if (columnIndex == 3) { // Absent
+            String checkin = po.getCheckin();
+            return (checkin == null || checkin.isEmpty()) ? "Absent" : "";
+        } else if (columnIndex == 4) { // Late
+            String checkin = po.getCheckin();
+            // Define your late time cutoff, for example 09:00
+            if (checkin == null || checkin.isEmpty()) {
+                return "";  // No check-in, so no late status
+            }
+            return isLate(checkin) ? "Late" : "";
         }
+
+        return null;
     }
 
+    // Helper method to determine if check-in is late
+    private boolean isLate(String checkinTime) {
+        // Assuming checkinTime format is HH:mm, e.g., "08:45" or "09:15"
+        String lateCutoff = "09:00";
+
+        // Simple string compare works if format is HH:mm
+        return checkinTime.compareTo(lateCutoff) > 0;
+    }
 
     private int getMonthNumber(String monthName) {
         Map<String, Integer> monthMap = new HashMap<>();
