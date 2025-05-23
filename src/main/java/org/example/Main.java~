@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 public class Main {
     public static void main(String[] args) {
 
-
-
         ResultGui2 resultGui2 = new ResultGui2("List Table");
         resultGui2.setVisible(true);
 //
@@ -23,12 +21,106 @@ public class Main {
         JavaGui javaGui = new JavaGui("Payroll System",resultGui2,a,b,c,d,e,f);
         javaGui.setVisible(false);
 
+        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2,javaGui);
+        final int[] selectedRowIndex = {-1};
+
+        resultGui2.deleteButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = resultGui2.table.getSelectedRow();
+                if (selectedRow != -1) {
+                    resultGui2.model5.remove(selectedRow);
+                    resultGui2.model.remove(selectedRow);
+                    resultGui2.model2.remove(selectedRow);
+                    resultGui2.model3.remove(selectedRow);
+                    
+                    JOptionPane.showMessageDialog(javaGui, "Person Deleted!");
+                    javaGui.getClearButton().doClick();
+                }else{
+                    //wla ka may ging select
+                    JOptionPane.showMessageDialog(javaGui, "No Person To Delete");
+                }
+            }
+        });
+
+        resultGui2.table.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int selectedRow = resultGui2.table.getSelectedRow();
+                if (selectedRow != -1) {
+                    //selecting index
+                    selectedRowIndex[0] = selectedRow;
+
+                    //if double click then ma balik iya mga file sa javagui
+                    if (e.getClickCount() == 2) {
+                        Employee e1 = resultGui2.model5.get(selectedRow);
+                        Person p = resultGui2.model.get(selectedRow);
+                        Deduction d = resultGui2.model2.get(selectedRow);
+                        Total t = resultGui2.model3.get(selectedRow);
+
+
+                        javaGui.getNameField().setText(p.getFirst() + " " + p.getLast());
+                        javaGui.getPosField().setText(p.getPosition());
+                        javaGui.getBasicSField().setText(p.getSalary());
+
+                        javaGui.getSssField().setText(d.getSss());
+                        javaGui.getPhilHField().setText(d.getPhilhealth());
+                        javaGui.getPagibigField().setText(d.getPagibig());
+
+                        javaGui.getGrossField().setText(t.getGrossPay());
+                        javaGui.getTotalDeducField().setText(t.getTotalDeduc());
+                        javaGui.getNetField().setText(t.getNetPay());
+                    }
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
        // AttendanceUi3 Test = new AttendanceUi3("Attendance");
-        AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2,javaGui);
+
         //wla pa selection nga may na tabo
-        final int[] selectedRowIndex = {-1};
+
 
 
         //ahhhh
@@ -223,53 +315,7 @@ public class Main {
 
 
 
-//        resultGui2.deleteButton.addActionListener(new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int selectedRow = resultGui2.table.getSelectedRow();
-//                if (selectedRow != -1) {
-//                    resultGui2.model.remove(selectedRow);
-//                    resultGui2.model2.remove(selectedRow);
-//                    resultGui2.model3.remove(selectedRow);
-//
-//                    JOptionPane.showMessageDialog(javaGui, "Person Deleted!");
-//                    javaGui.getClearButton().doClick();
-//                }else{
-//                    //wla ka may ging select
-//                    JOptionPane.showMessageDialog(javaGui, "No Person To Delete");
-//                }
-//            }
-//        });
 
-        resultGui2.table.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                int selectedRow = resultGui2.table.getSelectedRow();
-                if (selectedRow != -1) {
-                    //selecting index
-                    selectedRowIndex[0] = selectedRow;
-
-                    //if double click then ma balik iya mga file sa javagui
-                    if (e.getClickCount() == 2) {
-                        Person p = resultGui2.model.get(selectedRow);
-                        Deduction d = resultGui2.model2.get(selectedRow);
-                        Total t = resultGui2.model3.get(selectedRow);
-
-                        javaGui.getNameField().setText(p.getFirst() + " " + p.getLast());
-                        javaGui.getPosField().setText(p.getPosition());
-                        javaGui.getBasicSField().setText(p.getSalary());
-
-                        javaGui.getSssField().setText(d.getSss());
-                        javaGui.getPhilHField().setText(d.getPhilhealth());
-                        javaGui.getPagibigField().setText(d.getPagibig());
-
-                        javaGui.getGrossField().setText(t.getGrossPay());
-                        javaGui.getTotalDeducField().setText(t.getTotalDeduc());
-                        javaGui.getNetField().setText(t.getNetPay());
-                    }
-                }
-            }
-        });
 //
 //
 //        javaGui.update.addActionListener(new AbstractAction() {

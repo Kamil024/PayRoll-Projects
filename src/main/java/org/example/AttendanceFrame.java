@@ -25,7 +25,7 @@ public class AttendanceFrame extends JFrame {
     int dayCounter = 0;
     int presentCount = 0;
     int absentCount = 0;
-    int leaveCount = 0;
+    int lateCount = 0;
 
     JPanel buttons;
 
@@ -36,6 +36,9 @@ public class AttendanceFrame extends JFrame {
     JButton Add, Next;
     ResultGui2 resultGui2;
     JavaGui javaGui;
+
+
+    int totalMonthlyMinutes = 0;
     public AttendanceFrame(String title,ResultGui2 resultGui2,JavaGui javaGui) {
         this.setTitle(title);
         this.resultGui2 = resultGui2;
@@ -55,10 +58,13 @@ public class AttendanceFrame extends JFrame {
         id = new JLabel("Identification Number:");
         totalP = new JLabel("Present Total:");
         totalA = new JLabel("Absent Total:");
-        totalL = new JLabel("Total Leaves:");
+        totalL = new JLabel("Total Late:");
         monthLabel = new JLabel("Month:");
         yearLabel = new JLabel("Year:");
         Checkin = new JLabel("Time of Check in:");
+        //the attendance or work time should be 8 hours per day
+        //fix hour is 8:00 am to 4:00 pm
+        //if i in
         Checkout = new JLabel("Time of Check out");
 
         idField = new JTextField(10);
@@ -81,7 +87,7 @@ public class AttendanceFrame extends JFrame {
         clear = new JButton("Clear");
 
         Add = new JButton("Add");
-        Next = new JButton("PayRoll System");
+        Next = new JButton("PayRoll");
 
         Dimension buttonSize = new Dimension(100, 30);
         present.setPreferredSize(buttonSize);
@@ -114,7 +120,7 @@ public class AttendanceFrame extends JFrame {
         // Button actions
         present.addActionListener(e -> markAttendance("Present"));
         absent.addActionListener(e -> markAttendance("Absent"));
-        onLeave.addActionListener(e -> markAttendance("On Leave"));
+        onLeave.addActionListener(e -> markAttendance("Late"));
 
         clear.addActionListener(e -> {
             idField.setText("");
@@ -124,7 +130,7 @@ public class AttendanceFrame extends JFrame {
             dayCounter = 0;
             presentCount = 0;
             absentCount = 0;
-            leaveCount = 0;
+            lateCount = 0;
             model.clearData();
             updateTotals();
 
@@ -152,6 +158,8 @@ public class AttendanceFrame extends JFrame {
                 JavaGui javaGuiFrame = new JavaGui("Payroll System",resultGui2,id,month,year,day,checkin,checkout);
                 javaGuiFrame.setVisible(true);
                 this.dispose();  // close the current AttendanceFrame
+
+
             }
         });
 
@@ -186,12 +194,50 @@ public class AttendanceFrame extends JFrame {
         this.pack();
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+
     }
 
-    private void markAttendance(String status) {
+    public void markAttendance(String status) {
+        //showWorkDuration(in.getText(), out.getText());
         if (idField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter an ID first.", "Missing ID", JOptionPane.WARNING_MESSAGE);
             return;
+        }
+
+        String checkin = in.getText().trim();
+        String checkout = out.getText().trim();
+
+        if (checkin.isEmpty() || checkout.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter both check-in and check-out times.", "Missing Time", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Validate time format (e.g., 0:00 to 23:59)
+        if (!isValidTimeFormat(checkin) || !isValidTimeFormat(checkout)) {
+            JOptionPane.showMessageDialog(null, "Invalid time format! Please enter time as H:mm or HH:mm (e.g., 8:05, 12:30).", "Invalid Time Format", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // If validation passed, show duration
+        //validateWorkDuration(checkin, checkout);
+        int checker = getWorkDurationInMinutes(checkin, checkout);
+        //System.out.println(checker);
+        if(checker>480){
+            return;
+        }
+        totalMonthlyMinutes += checker;
+        System.out.println(totalMonthlyMinutes);
+
+        if (checker == 480) {
+            status = "Present";
+        }
+        if (checker < 480 && checker > 0) {
+            status = "Late";
+        }
+        if (checker == 0) {
+            status = "Absent";
         }
 
         int maxDays = getDaysInCurrentMonth();
@@ -205,8 +251,8 @@ public class AttendanceFrame extends JFrame {
                 case "Absent":
                     absentCount++;
                     break;
-                case "On Leave":
-                    leaveCount++;
+                case "Late":
+                    lateCount++;
                     break;
             }
             model.addKeys(new AttendanceKey(String.valueOf(dayCounter), status));
@@ -214,7 +260,78 @@ public class AttendanceFrame extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Maximum of " + maxDays + " days reached.");
         }
+        in.setText("");
+        out.setText("");
     }
+
+    public boolean isValidTimeFormat(String time) {
+        String timePattern = "^([0-9]|1[0-9]|2[0-3]):[0-5][0-9]$";
+        return time.matches(timePattern);
+    }
+
+
+
+    public void validateWorkDuration(String checkinTime, String checkoutTime) {
+        int diffMinutes = 0;
+        try {
+            String[] inParts = checkinTime.split(":");
+            String[] outParts = checkoutTime.split(":");
+            int inHours = Integer.parseInt(inParts[0].trim());
+            int inMinutes = Integer.parseInt(inParts[1].trim());
+            int outHours = Integer.parseInt(outParts[0].trim());
+            int outMinutes = Integer.parseInt(outParts[1].trim());
+
+            int inTotalMinutes = inHours * 60 + inMinutes;
+            int outTotalMinutes = outHours * 60 + outMinutes;
+
+            if (outTotalMinutes < inTotalMinutes) {
+                outTotalMinutes += 24 * 60;
+            }
+
+            diffMinutes = outTotalMinutes - inTotalMinutes;
+
+            if (diffMinutes != 480) {
+                JOptionPane.showMessageDialog(this,
+                        "Work duration must be exactly 8 hours.\n" +
+                                "You entered " + (diffMinutes / 60) + " hours and " + (diffMinutes % 60) + " minutes.",
+                        "Invalid Work Duration",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Work duration is valid: 8 hours.",
+                        "Duration Validated",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Invalid time format. Please use HH:mm.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    public int getWorkDurationInMinutes(String checkinTime, String checkoutTime) {
+        try {
+            String[] inParts = checkinTime.split(":");
+            String[] outParts = checkoutTime.split(":");
+            int inHours = Integer.parseInt(inParts[0].trim());
+            int inMinutes = Integer.parseInt(inParts[1].trim());
+            int outHours = Integer.parseInt(outParts[0].trim());
+            int outMinutes = Integer.parseInt(outParts[1].trim());
+
+            int inTotalMinutes = inHours * 60 + inMinutes;
+            int outTotalMinutes = outHours * 60 + outMinutes;
+
+            if (outTotalMinutes < inTotalMinutes) {
+                outTotalMinutes += 24 * 60;
+            }
+            return outTotalMinutes - inTotalMinutes;
+        } catch (Exception e) {
+            return -1; // use -1 to indicate invalid input or error
+        }
+    }
+
 
     private void updateDayLimitOnMonthYearChange() {
         int maxDays = getDaysInCurrentMonth();
@@ -278,7 +395,7 @@ public class AttendanceFrame extends JFrame {
     public void updateTotals() {
         totalP.setText("Present Total: " + presentCount);
         totalA.setText("Absent Total: " + absentCount);
-        totalL.setText("Total Leaves: " + leaveCount);
+        totalL.setText("Total Late: " + lateCount);
     }
 
     private JScrollPane createScrollPaneWithStyle(JTable table) {
