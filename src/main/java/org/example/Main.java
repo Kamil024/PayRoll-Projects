@@ -18,7 +18,8 @@ public class Main {
         String f = "";
         String g = "";
         String h = "";
-        JavaGui javaGui = new JavaGui("Payroll System",resultGui2,a,b,c,d,e,f);
+        int totalMonthlyMinutes = 0;
+        JavaGui javaGui = new JavaGui("Payroll System",resultGui2,a,b,c,d,e,f,totalMonthlyMinutes);
         javaGui.setVisible(false);
 
         AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2,javaGui);

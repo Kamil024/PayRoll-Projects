@@ -17,7 +17,7 @@ public class JavaGui extends JFrame {
 
     JButton BackLog;
 
-    public JavaGui(String title,ResultGui2 resultGui2,String ID, String Month, String Year, String Day, String Checkin, String Checkout) {
+    public JavaGui(String title,ResultGui2 resultGui2,String ID, String Month, String Year, String Day, String Checkin, String Checkout,int toalmonthmin) {
         this.setTitle(title);
 
         this.resultGui2 = resultGui2;

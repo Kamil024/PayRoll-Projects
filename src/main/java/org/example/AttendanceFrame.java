@@ -58,7 +58,7 @@ public class AttendanceFrame extends JFrame {
         id = new JLabel("Identification Number:");
         totalP = new JLabel("Present Total:");
         totalA = new JLabel("Absent Total:");
-        totalL = new JLabel("Total Late:");
+        totalL = new JLabel("Total Late/Early:");
         monthLabel = new JLabel("Month:");
         yearLabel = new JLabel("Year:");
         Checkin = new JLabel("Time of Check in:");
@@ -71,8 +71,8 @@ public class AttendanceFrame extends JFrame {
         yearField = new JTextField(5);
         yearField.setText("2025");
 
-        in = new JTextField(10);
-        out = new JTextField(10);
+        in = new JTextField("8:00", 10);
+        out = new JTextField("16:00", 10);
 
         String[] months = {
                 "January", "February", "March", "April", "May", "June",
@@ -81,7 +81,7 @@ public class AttendanceFrame extends JFrame {
         monthCombo = new JComboBox<>(months);
 
         // Buttons for attendance marking
-        present = new JButton("Present");
+        present = new JButton("Add");
         absent = new JButton("Absent");
         onLeave = new JButton("Late");
         clear = new JButton("Clear");
@@ -124,8 +124,8 @@ public class AttendanceFrame extends JFrame {
 
         clear.addActionListener(e -> {
             idField.setText("");
-            in.setText("");
-            out.setText("");
+            //in.setText("");
+            //out.setText("");
             yearField.setText("2025");  // reset to default year
             dayCounter = 0;
             presentCount = 0;
@@ -155,7 +155,7 @@ public class AttendanceFrame extends JFrame {
                 String checkin = in.getText();
                 String checkout = out.getText();
                 String year = yearField.getText();
-                JavaGui javaGuiFrame = new JavaGui("Payroll System",resultGui2,id,month,year,day,checkin,checkout);
+                JavaGui javaGuiFrame = new JavaGui("Payroll System",resultGui2,id,month,year,day,checkin,checkout,totalMonthlyMinutes);
                 javaGuiFrame.setVisible(true);
                 this.dispose();  // close the current AttendanceFrame
 
@@ -226,20 +226,24 @@ public class AttendanceFrame extends JFrame {
         if(checker>480){
             return;
         }
-        totalMonthlyMinutes += checker;
-        System.out.println(totalMonthlyMinutes);
-
         if (checker == 480) {
             status = "Present";
         }
         if (checker < 480 && checker > 0) {
-            status = "Late";
+            int totalLateMinutes = 480 - checker;
+            status = "Missing " + totalLateMinutes + " minutes";
+            lateCount++;
         }
         if (checker == 0) {
             status = "Absent";
         }
 
         int maxDays = getDaysInCurrentMonth();
+
+        if(dayCounter<maxDays-1){
+            totalMonthlyMinutes += checker;
+            System.out.println(totalMonthlyMinutes);
+        }
 
         if (dayCounter < maxDays) {
             dayCounter++;
@@ -251,6 +255,7 @@ public class AttendanceFrame extends JFrame {
                     absentCount++;
                     break;
                 case "Late":
+                    //this not working due to alot of basta amona
                     lateCount++;
                     break;
             }
@@ -259,8 +264,8 @@ public class AttendanceFrame extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Maximum of " + maxDays + " days reached.");
         }
-        in.setText("");
-        out.setText("");
+        in.setText("8:00");
+        out.setText("16:00");
     }
 
     public boolean isValidTimeFormat(String time) {
@@ -361,7 +366,7 @@ public class AttendanceFrame extends JFrame {
     public void updateTotals() {
         totalP.setText("Present Total: " + presentCount);
         totalA.setText("Absent Total: " + absentCount);
-        totalL.setText("Total Late: " + lateCount);
+        totalL.setText("Total Late/Early: " + lateCount);
     }
 
     private JScrollPane createScrollPaneWithStyle(JTable table) {
