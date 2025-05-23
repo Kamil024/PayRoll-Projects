@@ -200,7 +200,6 @@ public class AttendanceFrame extends JFrame {
     }
 
     public void markAttendance(String status) {
-        //showWorkDuration(in.getText(), out.getText());
         if (idField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter an ID first.", "Missing ID", JOptionPane.WARNING_MESSAGE);
             return;
@@ -221,7 +220,7 @@ public class AttendanceFrame extends JFrame {
         }
 
         // If validation passed, show duration
-        //validateWorkDuration(checkin, checkout);
+
         int checker = getWorkDurationInMinutes(checkin, checkout);
         //System.out.println(checker);
         if(checker>480){
@@ -270,67 +269,34 @@ public class AttendanceFrame extends JFrame {
     }
 
 
-
-    public void validateWorkDuration(String checkinTime, String checkoutTime) {
-        int diffMinutes = 0;
-        try {
-            String[] inParts = checkinTime.split(":");
-            String[] outParts = checkoutTime.split(":");
-            int inHours = Integer.parseInt(inParts[0].trim());
-            int inMinutes = Integer.parseInt(inParts[1].trim());
-            int outHours = Integer.parseInt(outParts[0].trim());
-            int outMinutes = Integer.parseInt(outParts[1].trim());
-
-            int inTotalMinutes = inHours * 60 + inMinutes;
-            int outTotalMinutes = outHours * 60 + outMinutes;
-
-            if (outTotalMinutes < inTotalMinutes) {
-                outTotalMinutes += 24 * 60;
-            }
-
-            diffMinutes = outTotalMinutes - inTotalMinutes;
-
-            if (diffMinutes != 480) {
-                JOptionPane.showMessageDialog(this,
-                        "Work duration must be exactly 8 hours.\n" +
-                                "You entered " + (diffMinutes / 60) + " hours and " + (diffMinutes % 60) + " minutes.",
-                        "Invalid Work Duration",
-                        JOptionPane.WARNING_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Work duration is valid: 8 hours.",
-                        "Duration Validated",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
-                    "Invalid time format. Please use HH:mm.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-
-    }
-
     public int getWorkDurationInMinutes(String checkinTime, String checkoutTime) {
         try {
             String[] inParts = checkinTime.split(":");
             String[] outParts = checkoutTime.split(":");
+
             int inHours = Integer.parseInt(inParts[0].trim());
             int inMinutes = Integer.parseInt(inParts[1].trim());
             int outHours = Integer.parseInt(outParts[0].trim());
             int outMinutes = Integer.parseInt(outParts[1].trim());
 
-            int inTotalMinutes = inHours * 60 + inMinutes;
-            int outTotalMinutes = outHours * 60 + outMinutes;
-
-            if (outTotalMinutes < inTotalMinutes) {
-                outTotalMinutes += 24 * 60;
+            int checkIn = inHours * 60 + inMinutes;
+            int checkOut = outHours * 60 + outMinutes;
+            // Fix work
+            int workStart = 8 * 60;   // 08:00 = 480 minutes
+            int workEnd = 16 * 60;    // 16:00 = 960 minutes
+            
+            checkIn = Math.max(checkIn, workStart);
+            checkOut = Math.min(checkOut, workEnd);
+            int duration = checkOut - checkIn;
+            if (duration < 0) {
+                return 0;
             }
-            return outTotalMinutes - inTotalMinutes;
+            return duration;
         } catch (Exception e) {
-            return -1; // use -1 to indicate invalid input or error
+            return -1;
         }
     }
+
 
 
     private void updateDayLimitOnMonthYearChange() {
