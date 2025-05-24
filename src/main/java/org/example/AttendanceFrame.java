@@ -155,7 +155,7 @@ public class AttendanceFrame extends JFrame {
                 String checkin = in.getText();
                 String checkout = out.getText();
                 String year = yearField.getText();
-                JavaGui javaGuiFrame = new JavaGui("Payroll System",resultGui2,id,month,year,day,checkin,checkout,totalMonthlyMinutes);
+                JavaGui javaGuiFrame = new JavaGui("Payroll System",resultGui2,id,month,year,day,checkin,checkout,totalMonthlyMinutes,presentCount,absentCount,lateCount);
                 javaGuiFrame.setVisible(true);
                 this.dispose();  // close the current AttendanceFrame
 

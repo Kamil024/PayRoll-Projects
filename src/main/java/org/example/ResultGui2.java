@@ -5,10 +5,6 @@ import java.awt.*;
 
 public class ResultGui2 extends JFrame {
     private ResultGui2 resultGui2;
-    public void setResultGui2(ResultGui2 resultGui2) {
-        this.resultGui2 = resultGui2;
-    }
-
     GridBagLayout layout;
     Container container;
 
@@ -24,9 +20,7 @@ public class ResultGui2 extends JFrame {
     JTable table3;
     JScrollPane jScrollPane3;
 
-    TabHours model4;
-    JTable table4;
-    JScrollPane jScrollPane4;
+
 
     EmpoTable model5;
     JTable table5;
@@ -55,10 +49,7 @@ public class ResultGui2 extends JFrame {
         jScrollPane3 = new JScrollPane(table3);
         jScrollPane3 = createScrollPaneWithStyle(table3);
 
-        model4 = new TabHours();
-        table4 = new JTable(model4);
-        jScrollPane4 = new JScrollPane(table4);
-        jScrollPane4 = SmallerTime(table4);
+
 
         model5 = new EmpoTable();
         table5 = new JTable(model5);
@@ -111,17 +102,6 @@ public class ResultGui2 extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void addData(Person person, Deduction deduction, Total total, Employee employee) {
-        model.adding(person);
-        model.fireTableDataChanged();
-        model2.adding(deduction);
-        model2.fireTableDataChanged();
-        model3.adding(total);
-        model3.fireTableDataChanged();
-        model5.adding(employee);
-        model5.fireTableDataChanged();
-    }
-
     public void addtoCon(Container e, int x, int y, int wx, int wy){
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -141,14 +121,8 @@ public class ResultGui2 extends JFrame {
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(20);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(300, 350));
+        scrollPane.setPreferredSize(new Dimension(400, 600));
         return scrollPane;
     }
-    private JScrollPane SmallerTime(JTable table) {
-        table.setFont(new Font("Arial", Font.PLAIN, 12));
-        table.setRowHeight(20);
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(150, 400));
-        return scrollPane;
-    }
+
 }

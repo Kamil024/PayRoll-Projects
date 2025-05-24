@@ -62,7 +62,7 @@ public class Main {
                         Deduction d = resultGui2.model2.get(selectedRow);
                         Total t = resultGui2.model3.get(selectedRow);
 
-
+                        
                         javaGui.getNameField().setText(p.getFirst() + " " + p.getLast());
                         javaGui.getPosField().setText(p.getPosition());
                         javaGui.getBasicSField().setText(p.getSalary());

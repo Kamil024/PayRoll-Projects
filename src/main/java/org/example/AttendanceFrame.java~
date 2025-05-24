@@ -124,8 +124,8 @@ public class AttendanceFrame extends JFrame {
 
         clear.addActionListener(e -> {
             idField.setText("");
-            in.setText("");
-            out.setText("");
+            //in.setText("");
+            //out.setText("");
             yearField.setText("2025");  // reset to default year
             dayCounter = 0;
             presentCount = 0;

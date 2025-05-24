@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class TabDeduc extends AbstractTableModel {
     ArrayList<Deduction> person;
 
-    String[] columns ={"SSS" , "PhilHealth", "Pag-IBIG","Philiphine Tax"};
+    String[] columns ={"SSS" , "PhilHealth", "Pag-IBIG"};
     public TabDeduc(){
 
         person = new ArrayList<>();
@@ -56,11 +56,8 @@ public class TabDeduc extends AbstractTableModel {
             return po.getSss();
         }else if(columnIndex == 1) {
             return po.getPhilhealth();
-        }else if(columnIndex == 2) {
+        }else{
             return po.getPagibig();
-        }else if(columnIndex == 3) {
-            return po.getPhilipineanTax();
         }
-        return null;
     }
 }

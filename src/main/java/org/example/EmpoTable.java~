@@ -74,11 +74,9 @@ public class EmpoTable extends AbstractTableModel {
                     po.getYear());
             return formattedDate;
         } else if (columnIndex == 2) {
-            return po.getPresent();
-        } else if(columnIndex == 3) {
-            return po.getAbsent();
+            return po.getCheckin();
         } else {
-            return po.getLate();
+            return po.getCheckout();
         }
     }
 
