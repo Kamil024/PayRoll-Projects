@@ -240,7 +240,7 @@ public class AttendanceFrame extends JFrame {
 
         int maxDays = getDaysInCurrentMonth();
 
-        if(dayCounter<maxDays-1){
+        if(dayCounter<maxDays){
             totalMonthlyMinutes += checker;
             System.out.println(totalMonthlyMinutes);
         }
