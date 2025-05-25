@@ -121,7 +121,7 @@ public class ResultGui2 extends JFrame {
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(20);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(400, 600));
+        scrollPane.setPreferredSize(new Dimension(200, 300));
         return scrollPane;
     }
 
