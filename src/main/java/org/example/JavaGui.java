@@ -223,7 +223,7 @@ public class JavaGui extends JFrame {
                 double gross = (salary / 480) * totalmins;
 
 
-                // sss calculation
+                // sss calculations
                 double sss = 0;
                 if(gross >= 4000 && gross <= 30000){
                     sss = gross * 0.045;
@@ -232,7 +232,7 @@ public class JavaGui extends JFrame {
                 }else if(gross > 30000){
                     sss = 1350;
                 }
-                // philhealth calculation
+                // philhealth calculations
                 double philhealth = 0;
                 if(gross >= 10000 && gross <= 10000){
                     philhealth = gross * 0.025;
@@ -241,7 +241,7 @@ public class JavaGui extends JFrame {
                 }else if(gross > 10000){
                     philhealth = 2500;
                 }
-                // pagibig calculation
+                // pagibig calculations
                 double pagibig = 0;
                 if(gross <= 5000){
                     pagibig = gross * 0.02;
@@ -249,7 +249,7 @@ public class JavaGui extends JFrame {
                     pagibig = 100;
                 }
 
-                // philippine tax calculation
+                // philippine tax calculations
                 double tax = 0;
                 double totalgross = gross - (sss + pagibig + philhealth);
 
