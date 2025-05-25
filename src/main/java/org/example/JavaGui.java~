@@ -19,7 +19,7 @@ public class JavaGui extends JFrame {
 
     String taxi = "";
 
-    public JavaGui(String title,ResultGui2 resultGui2,String ID, String Month, String Year, String Day, String Checkin, String Checkout,int toalmonthmin,int present,int absent,int late) {
+    public JavaGui(String title,ResultGui2 resultGui2,String ID, String Month, String Year, String Day, String Checkin, String Checkout,int toalmonthmin,int present,int absent,int late,String name1, String pos) {
         this.setTitle(title);
 
         this.resultGui2 = resultGui2;
@@ -208,7 +208,7 @@ public class JavaGui extends JFrame {
         BackLog.addActionListener(e -> {
             this.setVisible(false);
             attendanceFrame.setVisible(true);
-            taxi = taxfield.getText();
+
         });
 
         calculate.addActionListener(e -> {
@@ -271,6 +271,7 @@ public class JavaGui extends JFrame {
                 grossfield.setText(String.format("%.2f", monthlySalary));
                 netfield.setText(String.format("%.2f", netPay));
 
+                taxi = taxfield.getText();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Please enter a valid numeric Daily Salary.", "Input Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -313,7 +314,6 @@ public class JavaGui extends JFrame {
 
 
         getAddButton().addActionListener(e -> {
-            System.out.println(taxi);
             String fullName = getNameField().getText().trim();
             String[] names = fullName.split(" ", 2);
             String first = names.length > 0 ? names[0] : "";

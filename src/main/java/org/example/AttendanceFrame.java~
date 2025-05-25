@@ -146,18 +146,38 @@ public class AttendanceFrame extends JFrame {
                         "Incomplete Attendance",
                         JOptionPane.WARNING_MESSAGE);
             } else {
-                // Open JavaGui only when all days are counted
+                    String id = idField.getText();
+                    String month = (String) monthCombo.getSelectedItem();;
+                    String day = dayCounter + "";
+                    String checkin = in.getText();
+                    String checkout = out.getText();
+                    String year = yearField.getText();
+                    String name = "";
+                    String pos = "";
 
+                    boolean idExists = false;
 
-                String id = idField.getText();
-                String month = (String) monthCombo.getSelectedItem();;
-                String day = dayCounter + "";
-                String checkin = in.getText();
-                String checkout = out.getText();
-                String year = yearField.getText();
-                JavaGui javaGuiFrame = new JavaGui("Payroll System",resultGui2,id,month,year,day,checkin,checkout,totalMonthlyMinutes);
+                for (int i = 0; i < resultGui2.model5.getRowCount(); i++) {
+                    Object idObj = resultGui2.model5.getValueAt(i, 0); // assuming column 0 is ID
+                    if (idObj != null && idObj.toString().equals(id)) {
+
+                        idExists = true;
+                        name = resultGui2.model.getValueAt(i, 0).toString();
+                        pos = resultGui2.model.getValueAt(i, 1).toString();
+
+                        System.out.println(name + " " + pos);
+                        break;
+                    }
+                }
+                JavaGui javaGuiFrame = new JavaGui("Payroll System",resultGui2,id,month,year,day,checkin,checkout,totalMonthlyMinutes,presentCount,absentCount,lateCount,name,pos);
+                javaGuiFrame.namefield.setText(name);
+                javaGuiFrame.posfield.setText(pos);
+                if(!idExists){
+                    javaGuiFrame.namefield.setEditable(false);
+                    javaGuiFrame.posfield.setEditable(false);
+                }
                 javaGuiFrame.setVisible(true);
-                this.dispose();  // close the current AttendanceFrame
+                this.dispose();
 
 
             }

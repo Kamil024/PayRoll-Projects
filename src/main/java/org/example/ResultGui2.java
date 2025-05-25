@@ -28,7 +28,7 @@ public class ResultGui2 extends JFrame {
 
     JPanel panel;
 
-    JButton deleteButton;
+    JButton deleteButton, ComputeAnnualPay, Update;
 
     JPanel TablePanel;
 
@@ -63,12 +63,21 @@ public class ResultGui2 extends JFrame {
         add(jScrollPane2, BorderLayout.EAST);
         add(jScrollPane3, BorderLayout.SOUTH);
 
+        Font bigFont = new Font("Arial", Font.PLAIN, 16);
 
         deleteButton = new JButton("Delete");
+        ComputeAnnualPay = new JButton("Yearly Pay");
+        Update = new JButton("Update");
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBackground(new Color(0, 0, 64));
 
+        deleteButton.setFont(bigFont);
+        ComputeAnnualPay.setFont(bigFont);
+        Update.setFont(bigFont);
+
         panel.add(deleteButton);
+        panel.add(ComputeAnnualPay);
+        panel.add(Update);
 
         TablePanel = new JPanel();
 

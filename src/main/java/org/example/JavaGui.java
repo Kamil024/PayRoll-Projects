@@ -19,7 +19,7 @@ public class JavaGui extends JFrame {
 
     String taxi = "";
 
-    public JavaGui(String title,ResultGui2 resultGui2,String ID, String Month, String Year, String Day, String Checkin, String Checkout,int toalmonthmin,int present,int absent,int late) {
+    public JavaGui(String title,ResultGui2 resultGui2,String ID, String Month, String Year, String Day, String Checkin, String Checkout,int toalmonthmin,int present,int absent,int late,String name1, String pos) {
         this.setTitle(title);
 
         this.resultGui2 = resultGui2;
@@ -188,9 +188,9 @@ public class JavaGui extends JFrame {
         addtoCon(netpay, 0, 12, 1, 1);
         addtoCon(netfield, 1, 12, 1, 1);
         addtoCon(add, 0, 13, 1, 1);
-        addtoCon(update, 1, 13, 1, 1);
+        addtoCon(BackLog, 1, 13, 1, 1);
 
-        addtoCon(BackLog,0,14,1,1);
+        //addtoCon(BackLog,0,14,1,1);
 
         //dpat wla dell
         //addtoCon(delete, 0, 12, 2, 1);

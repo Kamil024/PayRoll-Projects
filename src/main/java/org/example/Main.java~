@@ -22,7 +22,7 @@ public class Main {
         int p = 0;
         int l = 0;
         int op = 0;
-        JavaGui javaGui = new JavaGui("Payroll System",resultGui2,a,b,c,d,e,f,totalMonthlyMinutes,p,l,op);
+        JavaGui javaGui = new JavaGui("Payroll System",resultGui2,a,b,c,d,e,f,totalMonthlyMinutes,p,l,op,g,h);
         javaGui.setVisible(false);
 
         AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2,javaGui);
@@ -47,6 +47,102 @@ public class Main {
             }
         });
 
+        resultGui2.ComputeAnnualPay.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create a new JFrame or JDialog for the search window
+                JFrame searchFrame = new JFrame("Search Employee by ID");
+                searchFrame.setSize(400, 150);
+                searchFrame.setLocationRelativeTo(null);
+                searchFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                searchFrame.setLayout(null);
+
+                JLabel idLabel = new JLabel("Enter ID:");
+                idLabel.setBounds(30, 20, 100, 25);
+                searchFrame.add(idLabel);
+
+                JTextField idField = new JTextField();
+                idField.setBounds(100, 20, 200, 25);
+                searchFrame.add(idField);
+
+                JButton searchButton = new JButton("Search");
+                searchButton.setBounds(150, 60, 100, 30);
+                searchFrame.add(searchButton);
+
+                searchButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ev) {
+                        String searchId = idField.getText().trim();
+
+                        boolean found = false;
+                        double annualPay = 0;
+                        for (int i = 0; i < resultGui2.model5.getRowCount(); i++) {
+                            String currentId = (String) resultGui2.model5.getValueAt(i, 0); // column 0 = ID
+                            if (currentId.equals(searchId)) {
+                                found = true;
+                                Object monthlySalaryObj = resultGui2.model3.getValueAt(i, 1);
+                                double monthlySalary = 0;
+                                try {
+                                    monthlySalary = Double.parseDouble(monthlySalaryObj.toString());
+                                } catch (Exception ex) {
+                                    System.out.println("ERROR");
+                                }
+
+                                annualPay+= monthlySalary ;
+                            }
+                        }
+                        if (found){
+                            JOptionPane.showMessageDialog(searchFrame,
+                                    "ID: " + searchId + " \nEstimated Annual Pay: " + annualPay,
+                                    "Found", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        else if (!found) {
+                            JOptionPane.showMessageDialog(searchFrame,
+                                    "No employee found with ID: " + searchId,
+                                    "Not Found", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                });
+
+
+                searchFrame.setVisible(true);
+            }
+        });
+
+        resultGui2.Update.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = resultGui2.table.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select a row to update.");
+                    return;
+                }
+                JFrame updateFrame = new JFrame("Update Payroll");
+                updateFrame.setSize(400, 160);
+                updateFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                updateFrame.setLayout(null);
+
+                JLabel salaryLabel = new JLabel("Enter New Daily Salary:");
+                salaryLabel.setBounds(30, 20, 150, 25);
+                updateFrame.add(salaryLabel);
+
+                JTextField salaryField = new JTextField();
+                salaryField.setBounds(180, 20, 150, 25);
+                updateFrame.add(salaryField);
+
+                JButton updateButton = new JButton("Update");
+                updateButton.setBounds(140, 70, 100, 30);
+                updateFrame.add(updateButton);
+
+
+                updateFrame.setLocationRelativeTo(null); 
+                updateFrame.setVisible(true);
+            }
+        });
+
+
+
+
         resultGui2.table.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -62,7 +158,7 @@ public class Main {
                         Deduction d = resultGui2.model2.get(selectedRow);
                         Total t = resultGui2.model3.get(selectedRow);
 
-                        
+
                         javaGui.getNameField().setText(p.getFirst() + " " + p.getLast());
                         javaGui.getPosField().setText(p.getPosition());
                         javaGui.getBasicSField().setText(p.getSalary());
