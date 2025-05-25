@@ -234,11 +234,11 @@ public class JavaGui extends JFrame {
                 }
                 // philhealth calculations
                 double philhealth = 0;
-                if(gross >= 10000 && gross <= 10000){
+                if(gross >= 10000 && gross <= 100000){
                     philhealth = gross * 0.025;
                 }else if(gross < 10000){
                     philhealth = 250;
-                }else if(gross > 10000){
+                }else if(gross > 100000){
                     philhealth = 2500;
                 }
                 // pagibig calculations
@@ -252,39 +252,36 @@ public class JavaGui extends JFrame {
                 // philippine tax calculations
                 double tax = 0;
                 double totalgross = gross - (sss + pagibig + philhealth);
-
-                double annual = totalgross * 12;
-                if(annual <= 250000){
+                System.out.println(totalgross);
+                if(totalgross <= 20833){
                     tax = 0;
-                }else if(annual > 250000 && annual <= 400000){
-                    // 250 001 to 400 000 range
-                    // 20% of the excess 250 000
-                    tax = (annual - 250000) * 0.2;
-                }else if(annual >= 400001 && annual <= 800000){
-                    // 400 001 to 800 000 range
-                    // 25% of the excess 400 + 30 000
-                    tax = ((annual - 400000) * 0.25) + 30000;
-                }else if(annual > 800000 && annual <= 2000000){
-                    // 800 001 to 2million range
-                    // 30% of the excess 800k + 130 000;
-                    tax = ((annual - 800000) * 0.3) + 130000;
-                }else if(annual > 2000000 && annual <= 8000000){
-                    // 2million one to 8 million range
-                    // 32% of the excess 2m + 490 000;
-                    tax = ((annual - 2000000) * .32) + 490000;
-                }else if(annual > 8000000){
-                    // over 8million
-                    // 35 % of the excess 8million + 2 410 000;
-                    tax = ((annual - 8000000) * 0.35) + 2410000;
+                }else if(totalgross >= 20834 && totalgross <= 33332){
+                    // 20,834 to 33,332 range
+                    // 15% of the excess 20833
+                    tax = (totalgross - 20833) * 0.15;
+                }else if(totalgross >= 33333 && totalgross <= 66667){
+                    // 33,333 to 66,667 range
+                    // 20% of the excess 33,333 + 1875
+                    tax = ((totalgross - 33333) * 0.2) + 1875;
+                }else if(totalgross >= 66668 && totalgross <= 166667){
+                    // 66,668 to 166,667 range
+                    // 25% of the excess 66,667 + 8,541.80;
+                    tax = ((totalgross - 66667) * 0.25) + 8541.80;
+                }else if(totalgross >= 166668 && totalgross <= 666667){
+                    // 166,668 to 666,667 range
+                    // 30% of the excess 166,667 + 33,541.80;
+                    tax = ((totalgross - 166667) * 0.3) + 33541.80;
+                }else if(totalgross >= 666668){
+                    // over 666,668
+                    // 35 % of the excess 666,667 + 2 183,541.80;
+                    tax = ((totalgross - 666667) * 0.35) + 183541.80;
                 }
 
-                double totaltax = tax / 12;
-                double totaldeduction = sss + philhealth + pagibig + totaltax;
-
-
+                double totaldeduction = sss + philhealth + pagibig + tax;
                 double netpay = gross - totaldeduction;
+
                 totaldeducfield.setText(String.format("%.2f",totaldeduction));
-                taxfield.setText(String.format("%.2f", totaltax));
+                taxfield.setText(String.format("%.2f", tax));
                 pagibigfield.setText(String.format("%.2f", pagibig));
                 philHfield.setText(String.format("%.2f", philhealth));
                 sssfield.setText(String.format("%.2f", sss));
