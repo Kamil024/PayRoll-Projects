@@ -254,6 +254,7 @@ public class JavaGui extends JFrame {
                 double totalgross = gross - (sss + pagibig + philhealth);
                 System.out.println(totalgross);
                 if(totalgross <= 20833){
+                    // wala tax kng nubo sa 20,833
                     tax = 0;
                 }else if(totalgross >= 20834 && totalgross <= 33332){
                     // 20,834 to 33,332 range
