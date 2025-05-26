@@ -1,10 +1,10 @@
 package org.example;
 
 public class Person {
-    private String first;
-    private String last;
-    private String position;
-    private String Salary;
+    public String first;
+    public String last;
+    public String position;
+    public String Salary;
 
 
     public Person(String first, String last, String position, String salary) {

@@ -39,6 +39,11 @@ public class TabDeduc extends AbstractTableModel {
         return person.get(index);
     }
 
+    public void clear() {
+        person.clear();
+        fireTableDataChanged();
+    }
+
 
     public void update(int index, Deduction updatedDeduction) {
         if(index >= 0 && index < person.size()) {

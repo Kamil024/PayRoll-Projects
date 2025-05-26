@@ -35,6 +35,12 @@ public class TabTotal extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+
+    public void clear() {
+        person.clear();
+        fireTableDataChanged();
+    }
+
     public Total get(int index) {
         return person.get(index);
     }

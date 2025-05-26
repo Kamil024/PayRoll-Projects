@@ -39,6 +39,11 @@ public class EmpoTable extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+    public void clear() {
+        person.clear();
+        fireTableDataChanged();
+    }
+
     public Employee get(int index) {
         return person.get(index);
     }

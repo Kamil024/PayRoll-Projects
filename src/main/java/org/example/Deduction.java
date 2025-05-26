@@ -1,10 +1,10 @@
 package org.example;
 
 public class Deduction {
-    private String sss;
-    private String philhealth;
-    private String pagibig;
-    private String philipineanTax;
+    public String sss;
+    public String philhealth;
+    public String pagibig;
+    public String philipineanTax;
 
 
     public Deduction(String sss, String philhealth, String pagibig, String philipineanTax) {

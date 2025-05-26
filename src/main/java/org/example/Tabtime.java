@@ -34,6 +34,10 @@ public class Tabtime extends AbstractTableModel {
         person.remove(index);
         fireTableDataChanged();
     }
+    public void clear() {
+        person.clear();
+        fireTableDataChanged();
+    }
 
     public time get(int index) {
 

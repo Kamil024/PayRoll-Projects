@@ -16,6 +16,11 @@ public class Tablee extends AbstractTableModel {
         person.add(student);
         fireTableDataChanged();
     }
+    public void clear() {
+        person.clear();
+        fireTableDataChanged();
+    }
+
 
     public String getColumnName(int column){
         return columns[column];
@@ -40,6 +45,7 @@ public class Tablee extends AbstractTableModel {
         return person.get(index);
     }
 
+
     public void update(int index, Person updatedPerson) {
         if(index >= 0 && index < person.size()) {
             person.set(index, updatedPerson);
@@ -47,6 +53,10 @@ public class Tablee extends AbstractTableModel {
         }
     }
 
+    public void addRow(Person p) {
+        person.add(p);
+        fireTableRowsInserted(person.size() - 1, person.size() - 1);
+    }
 
 
     @Override

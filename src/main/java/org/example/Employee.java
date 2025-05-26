@@ -2,15 +2,13 @@ package org.example;
 
 public class Employee {
 
-    private String ID, day,year,month, checkin, checkout,present,absent,late;
+    public String ID, day,year,month,present,absent,late;
 
     public Employee(String ID, String day, String year, String month,  String present, String absent, String late) {
         this.ID = ID;
         this.day = day;
         this.year = year;
         this.month = month;
-        this.checkin = checkin;
-        this.checkout = checkout;
         this.present = present;
         this.absent = absent;
         this.late = late;
@@ -72,19 +70,5 @@ public class Employee {
         this.month = month;
     }
 
-    public String getCheckin() {
-        return checkin;
-    }
 
-    public void setCheckin(String checkin) {
-        this.checkin = checkin;
-    }
-
-    public String getCheckout() {
-        return checkout;
-    }
-
-    public void setCheckout(String checkout) {
-        this.checkout = checkout;
-    }
 }

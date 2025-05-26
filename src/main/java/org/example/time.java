@@ -1,7 +1,7 @@
 package org.example;
 
 public class time {
-    String time;
+    public String time;
 
     public time(String time) {
         this.time = time;

@@ -20,6 +20,7 @@ public class JavaGui extends JFrame {
 
     String taxi = "";
 
+
     public JavaGui(String title,ResultGui2 resultGui2,String ID, String Month, String Year, String Day, String Checkin, String Checkout,int toalmonthmin,int present,int absent,int late,String name1, String pos) {
         this.setTitle(title);
 
@@ -384,7 +385,7 @@ public class JavaGui extends JFrame {
             Deduction deduction = new Deduction(sss, philHealth, pagibig,taxi);
             Total total = new Total(gross, deduc, net);
 
-           // resultGui2.model5.adding(employee);
+            // resultGui2.model5.adding(employee);
             resultGui2.model.adding(person);
             resultGui2.model2.adding(deduction);
             resultGui2.model3.adding(total);

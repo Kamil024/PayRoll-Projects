@@ -187,7 +187,8 @@ public class Main {
                         try {
                             double newSalary = Double.parseDouble(salaryField.getText());
                             // Assuming column 8 is Daily Salary
-                            Double time = (Double) resultGui2.model4.getValueAt(selectedRow, 0);
+                            String timeStr = (String) resultGui2.model4.getValueAt(selectedRow, 0);
+                            double time = Double.parseDouble(timeStr);
 
                             double gross = (newSalary / 480) * time;
 

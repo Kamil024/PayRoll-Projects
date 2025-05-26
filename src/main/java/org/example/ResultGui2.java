@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ResultGui2 extends JFrame {
+
     private ResultGui2 resultGui2;
     GridBagLayout layout;
     Container container;
@@ -30,10 +31,11 @@ public class ResultGui2 extends JFrame {
 
     JPanel panel;
 
-    JButton deleteButton, ComputeAnnualPay, Update;
+    JButton deleteButton, ComputeAnnualPay, Update,Save,load;
 
     JPanel TablePanel;
     private int selectedTableRow = -1;
+
 
     public ResultGui2(String title){
         this.setTitle(title);
@@ -74,6 +76,8 @@ public class ResultGui2 extends JFrame {
         deleteButton = new JButton("Delete");
         ComputeAnnualPay = new JButton("Anual Pay");
         Update = new JButton("Update");
+        Save = new JButton("Save");
+        load = new JButton("load");
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBackground(new Color(0, 0, 64));
 
@@ -84,6 +88,8 @@ public class ResultGui2 extends JFrame {
         panel.add(deleteButton);
         panel.add(ComputeAnnualPay);
         panel.add(Update);
+        panel.add(Save);
+        panel.add(load);
 
         TablePanel = new JPanel();
 
@@ -97,6 +103,7 @@ public class ResultGui2 extends JFrame {
         container = this.getContentPane();
         container.setLayout(layout);
 
+
         //adding bg
         container.setBackground(new Color(0, 0, 64));
 
@@ -104,7 +111,7 @@ public class ResultGui2 extends JFrame {
 //        addtoCon(jScrollPane2,1,0,1,1);
 //        addtoCon(jScrollPane3,2,0,1,1);
 
-          addtoCon(TablePanel,0,0,1,1);
+        addtoCon(TablePanel,0,0,1,1);
 
         //addtoCon(jScrollPane4,3,0,1,1);
 
@@ -127,6 +134,8 @@ public class ResultGui2 extends JFrame {
         });
 
     }
+
+
 
     public int getSelectedTableRow() {
         return selectedTableRow;

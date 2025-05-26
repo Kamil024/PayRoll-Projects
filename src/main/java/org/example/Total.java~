@@ -1,12 +1,12 @@
 package org.example;
 
 public class Total {
-    public String grossPay;
-    public String totalDeduc;
-    public String netPay;
+    private String grossPay;
+    private String totalDeduc;
+    private String netPay;
 
 
-    public Total(String grossPay, String netPay, String totalDeduc) {
+    public Total(String grossPay, String totalDeduc, String netPay) {
         this.grossPay = grossPay;
         this.totalDeduc = totalDeduc;
         this.netPay = netPay;

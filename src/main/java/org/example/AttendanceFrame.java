@@ -146,16 +146,16 @@ public class AttendanceFrame extends JFrame {
                         "Incomplete Attendance",
                         JOptionPane.WARNING_MESSAGE);
             } else {
-                    String id = idField.getText();
-                    String month = (String) monthCombo.getSelectedItem();;
-                    String day = dayCounter + "";
-                    String checkin = in.getText();
-                    String checkout = out.getText();
-                    String year = yearField.getText();
-                    String name = "";
-                    String pos = "";
+                String id = idField.getText();
+                String month = (String) monthCombo.getSelectedItem();;
+                String day = dayCounter + "";
+                String checkin = in.getText();
+                String checkout = out.getText();
+                String year = yearField.getText();
+                String name = "";
+                String pos = "";
 
-                    boolean idExists = false;
+                boolean idExists = false;
 
                 for (int i = 0; i < resultGui2.model5.getRowCount(); i++) {
                     Object idObj = resultGui2.model5.getValueAt(i, 0); // assuming column 0 is ID
@@ -321,7 +321,7 @@ public class AttendanceFrame extends JFrame {
             // Fix work
             int workStart = 8 * 60;   // 08:00 = 480 minutes
             int workEnd = 16 * 60;    // 16:00 = 960 minutes
-            
+
             checkIn = Math.max(checkIn, workStart);
             checkOut = Math.min(checkOut, workEnd);
             int duration = checkOut - checkIn;
