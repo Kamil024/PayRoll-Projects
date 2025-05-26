@@ -218,7 +218,7 @@ public class JavaGui extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 double salary = Double.parseDouble(basicSfield.getText());
                 double totalmins = toalmonthmin;
-
+                time t = new time(totalmins + "");
 
                 double gross = (salary / 480) * totalmins;
 

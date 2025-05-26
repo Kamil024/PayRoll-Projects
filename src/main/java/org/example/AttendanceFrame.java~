@@ -224,18 +224,7 @@ public class AttendanceFrame extends JFrame {
             JOptionPane.showMessageDialog(null, "Please enter an ID first.", "Missing ID", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        int test;
-        try {
-            test = Integer.parseInt(idField.getText().trim());
-            if (test < 0 || test == -1) {
-                JOptionPane.showMessageDialog(null, "Invalid ID. Please enter a valid positive number (not -1).", "Invalid ID", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "ID must be a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
+        int test = Integer.parseInt(idField.getText());
 
         String checkin = in.getText().trim();
         String checkout = out.getText().trim();

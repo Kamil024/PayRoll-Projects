@@ -73,30 +73,75 @@ public class Main {
                     @Override
                     public void actionPerformed(ActionEvent ev) {
                         String searchId = idField.getText().trim();
-
+                        int monthCount = 0;
+                        double totalGross = 0;
+                        double totalDeduction = 0;
+                        double totalNet = 0;
                         boolean found = false;
-                        double annualPay = 0;
+
+                        String name = "";
+                        String sss = "";
+                        String pagibig = "";
+                        String philhealth = "";
+                        String tax = "";
+                        String position = "";
+                        String basicSalary = "";
+
                         for (int i = 0; i < resultGui2.model5.getRowCount(); i++) {
-                            String currentId = (String) resultGui2.model5.getValueAt(i, 0); // column 0 = ID
+                            String currentId = (String) resultGui2.model5.getValueAt(i, 0);
                             if (currentId.equals(searchId)) {
                                 found = true;
-                                Object monthlySalaryObj = resultGui2.model3.getValueAt(i, 1);
-                                double monthlySalary = 0;
-                                try {
-                                    monthlySalary = Double.parseDouble(monthlySalaryObj.toString());
-                                } catch (Exception ex) {
-                                    System.out.println("ERROR");
+                                monthCount++;
+
+                                if (monthCount == 1) {
+                                    name = (String) resultGui2.model.getValueAt(i, 0);
+                                    sss = resultGui2.model2.getValueAt(i, 0).toString();
+                                    pagibig = resultGui2.model2.getValueAt(i, 2).toString();
+                                    philhealth = resultGui2.model2.getValueAt(i, 1).toString();
+                                    tax = resultGui2.model2.getValueAt(i, 3).toString();
+                                    position = (String) resultGui2.model.getValueAt(i, 1);
+                                    basicSalary = resultGui2.model.getValueAt(i, 2).toString();
                                 }
 
-                                annualPay+= monthlySalary ;
+                                try {
+                                    double gross = Double.parseDouble(resultGui2.model3.getValueAt(i, 0).toString());
+                                    double deduction = Double.parseDouble(resultGui2.model3.getValueAt(i, 2).toString());
+                                    double net = Double.parseDouble(resultGui2.model3.getValueAt(i, 1).toString());
+
+                                    totalGross += gross;
+                                    totalDeduction += deduction;
+                                    totalNet += net;
+                                } catch (Exception ex) {
+                                    System.out.println("Error parsing payroll data at row " + i);
+                                }
                             }
                         }
-                        if (found){
-                            JOptionPane.showMessageDialog(searchFrame,
-                                    "ID: " + searchId + " \nEstimated Annual Pay: " + annualPay,
-                                    "Found", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        else if (!found) {
+
+                        if (found) {
+                            if (monthCount == 12) {
+                                StringBuilder payslip = new StringBuilder();
+                                payslip.append("========== ANNUAL PAYSLIP ==========\n");
+                                payslip.append("ID: ").append(searchId).append("\n");
+                                payslip.append("Name: ").append(name).append("\n");
+                                payslip.append("Position: ").append(position).append("\n");
+                                payslip.append("Basic Salary: ").append(basicSalary).append("\n");
+                                payslip.append("SSS: ").append(sss).append("\n");
+                                payslip.append("Pag-IBIG: ").append(pagibig).append("\n");
+                                payslip.append("PhilHealth: ").append(philhealth).append("\n");
+                                payslip.append("Philippine Tax: ").append(tax).append("\n");
+                                payslip.append("-----------------------------------\n");
+                                payslip.append(String.format("Total Gross Pay: %.2f\n", totalGross));
+                                payslip.append(String.format("Total Deduction: %.2f\n", totalDeduction));
+                                payslip.append(String.format("Total Net Pay: %.2f\n", totalNet));
+                                payslip.append("===================================");
+
+                                JOptionPane.showMessageDialog(searchFrame, payslip.toString(), "Annual Payslip", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(searchFrame,
+                                        "ID: " + searchId + " has only " + monthCount + " months of data.\nAnnual pay requires 12 months.",
+                                        "Incomplete Data", JOptionPane.WARNING_MESSAGE);
+                            }
+                        } else {
                             JOptionPane.showMessageDialog(searchFrame,
                                     "No employee found with ID: " + searchId,
                                     "Not Found", JOptionPane.ERROR_MESSAGE);
@@ -104,10 +149,11 @@ public class Main {
                     }
                 });
 
-
                 searchFrame.setVisible(true);
             }
         });
+
+
 
         resultGui2.Update.addActionListener(new ActionListener() {
             @Override
@@ -135,7 +181,121 @@ public class Main {
                 updateFrame.add(updateButton);
 
 
-                updateFrame.setLocationRelativeTo(null); 
+                updateButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ev) {
+                        try {
+                            double newSalary = Double.parseDouble(salaryField.getText());
+                            // Assuming column 8 is Daily Salary
+                            Double time = (Double) resultGui2.model4.getValueAt(selectedRow, 0);
+
+                            double gross = (newSalary / 480) * time;
+
+
+                            // sss calculations
+                            double sss = 0;
+                            if(gross >= 4000 && gross <= 30000){
+                                sss = gross * 0.045;
+                            }else if(gross < 4000){
+                                sss = 180;
+                            }else if(gross > 30000){
+                                sss = 1350;
+                            }
+                            // philhealth calculations
+                            double philhealth = 0;
+                            if(gross >= 10000 && gross <= 100000){
+                                philhealth = gross * 0.025;
+                            }else if(gross < 10000){
+                                philhealth = 250;
+                            }else if(gross > 100000){
+                                philhealth = 2500;
+                            }
+                            // pagibig calculations
+                            double pagibig = 0;
+                            if(gross <= 5000){
+                                pagibig = gross * 0.02;
+                            }else{
+                                pagibig = 100;
+                            }
+
+                            // philippine tax calculations
+                            double tax = 0;
+                            double totalgross = gross - (sss + pagibig + philhealth);
+                            System.out.println(totalgross);
+                            if(totalgross <= 20833){
+                                // wala tax kng nubo sa 20,833
+                                tax = 0;
+                            }else if(totalgross >= 20834 && totalgross <= 33332){
+                                // 20,834 to 33,332 range
+                                // 15% of the excess 20833
+                                tax = (totalgross - 20833) * 0.15;
+                            }else if(totalgross >= 33333 && totalgross <= 66667){
+                                // 33,333 to 66,667 range
+                                // 20% of the excess 33,333 + 1875
+                                tax = ((totalgross - 33333) * 0.2) + 1875;
+                            }else if(totalgross >= 66668 && totalgross <= 166667){
+                                // 66,668 to 166,667 range
+                                // 25% of the excess 66,667 + 8,541.80;
+                                tax = ((totalgross - 66667) * 0.25) + 8541.80;
+                            }else if(totalgross >= 166668 && totalgross <= 666667){
+                                // 166,668 to 666,667 range
+                                // 30% of the excess 166,667 + 33,541.80;
+                                tax = ((totalgross - 166667) * 0.3) + 33541.80;
+                            }else if(totalgross >= 666668){
+                                // over 666,668
+                                // 35 % of the excess 666,667 + 2 183,541.80;
+                                tax = ((totalgross - 666667) * 0.35) + 183541.80;
+                            }
+
+                            double totaldeduction = sss + philhealth + pagibig + tax;
+                            double netpay = gross - totaldeduction;
+                            String taxi = tax + "";
+                            String deduc = totaldeduction + "";
+                            String grossi = gross + "";
+                            String neti = netpay + "";
+                            String ibig = pagibig + "";
+                            String PHhealth = philhealth + "";
+                            String SSS = sss + "";
+                            String p = time + "";
+//                            totaldeducfield.setText(String.format("%.2f",totaldeduction));
+//                            taxfield.setText(String.format("%.2f", tax));
+//                            pagibigfield.setText(String.format("%.2f", pagibig));
+//                            philHfield.setText(String.format("%.2f", philhealth));
+//                            sssfield.setText(String.format("%.2f", sss));
+//                            grossfield.setText(String.format("%.2f", gross));
+//                            netfield.setText(String.format("%.2f", netpay));
+
+
+                            String name = (String) resultGui2.model.getValueAt(selectedRow, 0);
+
+                            String[] names = name.split(" ", 2);
+                            String first = names.length > 0 ? names[0] : "";
+                            String last = names.length > 1 ? names[1] : "";
+
+                            String position = (String) resultGui2.model.getValueAt(selectedRow, 1);
+                            String shesh = newSalary + "";
+
+
+                            time t = new time(p);
+                            Person pakcam = new Person(first,last,position,shesh);
+                            Deduction deduction = new Deduction(SSS,PHhealth,ibig,taxi);
+                            Total total = new Total(grossi,deduc,neti);
+
+                            resultGui2.model.update(selectedRow,pakcam);
+                            resultGui2.model2.update(selectedRow,deduction);
+                            resultGui2.model3.update(selectedRow,total);
+                            //resultGui2.model4.update(selectedRow,t);
+
+
+                            JOptionPane.showMessageDialog(updateFrame, "Salary updated successfully.");
+                            updateFrame.dispose();
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(updateFrame, "Please enter a valid number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                });
+
+                updateFrame.setLocationRelativeTo(null);
                 updateFrame.setVisible(true);
             }
         });
@@ -143,37 +303,42 @@ public class Main {
 
 
 
-        resultGui2.table.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                int selectedRow = resultGui2.table.getSelectedRow();
-                if (selectedRow != -1) {
-                    //selecting index
-                    selectedRowIndex[0] = selectedRow;
-
-                    //if double click then ma balik iya mga file sa javagui
-                    if (e.getClickCount() == 2) {
-                        Employee e1 = resultGui2.model5.get(selectedRow);
-                        Person p = resultGui2.model.get(selectedRow);
-                        Deduction d = resultGui2.model2.get(selectedRow);
-                        Total t = resultGui2.model3.get(selectedRow);
-
-
-                        javaGui.getNameField().setText(p.getFirst() + " " + p.getLast());
-                        javaGui.getPosField().setText(p.getPosition());
-                        javaGui.getBasicSField().setText(p.getSalary());
-
-                        javaGui.getSssField().setText(d.getSss());
-                        javaGui.getPhilHField().setText(d.getPhilhealth());
-                        javaGui.getPagibigField().setText(d.getPagibig());
-
-                        javaGui.getGrossField().setText(t.getGrossPay());
-                        javaGui.getTotalDeducField().setText(t.getTotalDeduc());
-                        javaGui.getNetField().setText(t.getNetPay());
-                    }
-                }
-            }
-        });
+//        resultGui2.table.addMouseListener(new java.awt.event.MouseAdapter() {
+//            @Override
+//            public void mouseClicked(java.awt.event.MouseEvent e) {
+//                int selectedRow = resultGui2.table.getSelectedRow();
+//                if (selectedRow != -1) {
+//                    selectedRowIndex[0] = selectedRow;
+//
+//                    if (e.getClickCount() == 2) {
+//                        System.out.println("Double clicked row: " + selectedRow);
+//                        Employee e1 = resultGui2.model5.get(selectedRow);
+//                        Person p = resultGui2.model.get(selectedRow);
+//                        Deduction d = resultGui2.model2.get(selectedRow);
+//                        Total t = resultGui2.model3.get(selectedRow);
+//
+//                        System.out.println("Person name: " + p.getFirst() + " " + p.getLast());
+//
+//                        javaGui.getNameField().setText(p.getFirst() + " " + p.getLast());
+//                        javaGui.getPosField().setText(p.getPosition());
+//                        javaGui.getBasicSField().setText(p.getSalary());
+//
+//                        javaGui.getSssField().setText(d.getSss());
+//                        javaGui.getPhilHField().setText(d.getPhilhealth());
+//                        javaGui.getPagibigField().setText(d.getPagibig());
+//
+//                        javaGui.getGrossField().setText(t.getGrossPay());
+//                        javaGui.getTotalDeducField().setText(t.getTotalDeduc());
+//                        javaGui.getNetField().setText(t.getNetPay());
+//
+//                        // Show the JavaGui window if not already visible
+//                        if (!javaGui.isVisible()) {
+//                            javaGui.setVisible(true);
+//                        }
+//                    }
+//                }
+//            }
+//        });
 
 
 

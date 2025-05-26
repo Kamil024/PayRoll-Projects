@@ -20,7 +20,9 @@ public class ResultGui2 extends JFrame {
     JTable table3;
     JScrollPane jScrollPane3;
 
-
+    Tabtime model4;
+    JTable table4;
+    JScrollPane jScrollPane4;
 
     EmpoTable model5;
     JTable table5;
@@ -31,6 +33,7 @@ public class ResultGui2 extends JFrame {
     JButton deleteButton, ComputeAnnualPay, Update;
 
     JPanel TablePanel;
+    private int selectedTableRow = -1;
 
     public ResultGui2(String title){
         this.setTitle(title);
@@ -49,7 +52,10 @@ public class ResultGui2 extends JFrame {
         jScrollPane3 = new JScrollPane(table3);
         jScrollPane3 = createScrollPaneWithStyle(table3);
 
-
+        model4 = new Tabtime();
+        table4 = new JTable(model4);
+        jScrollPane4 = new JScrollPane(table4);
+        jScrollPane4 = createScrollPaneWithStyle(table4);
 
         model5 = new EmpoTable();
         table5 = new JTable(model5);
@@ -66,7 +72,7 @@ public class ResultGui2 extends JFrame {
         Font bigFont = new Font("Arial", Font.PLAIN, 16);
 
         deleteButton = new JButton("Delete");
-        ComputeAnnualPay = new JButton("Yearly Pay");
+        ComputeAnnualPay = new JButton("Anual Pay");
         Update = new JButton("Update");
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBackground(new Color(0, 0, 64));
@@ -109,6 +115,21 @@ public class ResultGui2 extends JFrame {
         //stop resize
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        table.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = table.getSelectedRow();
+                // You can store this selection in a field for external access:
+                selectedTableRow = selectedRow;
+                // Or fire an event, or use a callback method, depending on your architecture
+                System.out.println("Selected row in main table: " + selectedRow);
+            }
+        });
+
+    }
+
+    public int getSelectedTableRow() {
+        return selectedTableRow;
     }
 
     public void addtoCon(Container e, int x, int y, int wx, int wy){
