@@ -10,6 +10,8 @@ public class Main {
 
         ResultGui2 resultGui2 = new ResultGui2("List Table");
         resultGui2.setVisible(true);
+
+
 //
         String a = "";
         String b = "";
@@ -29,127 +31,225 @@ public class Main {
         AttendanceFrame attendanceFrame = new AttendanceFrame("ATTENDANCE LOG",resultGui2,javaGui);
         final int[] selectedRowIndex = {-1};
 
-//        FireBaseCollection col = new FireBaseCollection(resultGui2);
-//
-//        resultGui2.model.clear();
-//        for (int i = 0; i < col.getAllPerson().size(); i++) {
-//            resultGui2.model.adding(col.getAllPerson().get(i));
-//            System.out.println(col.getAllPerson().get(i));
-//        }
-//
-//
-//        resultGui2.model2.clear();
-//        for (int i = 0; i < col.getAllDeductions().size(); i++) {
-//            resultGui2.model2.adding(col.getAllDeductions().get(i));
-//        }
-//
-//
-//        resultGui2.model3.clear();
-//        for (int i = 0; i < col.getAllEmpo().size(); i++) {
-//            resultGui2.model3.adding(col.getAllTotal().get(i));
-//        }
-//
-//
-//        resultGui2.model5.clear();
-//        for (int i = 0; i < col.getAllEmpo().size(); i++) {
-//            resultGui2.model5.adding(col.getAllEmpo().get(i));
-//        }
-//
-//
-//        resultGui2.model4.clear();
-//        for (int i = 0; i < col.getTime().size(); i++) {
-//            resultGui2.model4.adding(col.getTime().get(i));
-//        }
-//
-//
-//
-////        resultGui2.load.addActionListener(event -> {
-////            for (int i = 0; i < col.getAllDeductions().size(); i++) {
-////                resultGui2.model2.adding(col.getAllDeductions().get(i));
-////            }
-////        });
-//
-//
-//
-//
-//        resultGui2.Save.addActionListener(event -> {
-//            int rows = resultGui2.model.getRowCount();
-//
-//            for (int i = 0; i < rows; i++) {
-//                // Basic Info
-//                String name = (String) resultGui2.model.getValueAt(i, 0);      // Name
-//                String position = (String) resultGui2.model.getValueAt(i, 1);  // Position
-//                double basicSalary = Double.parseDouble(resultGui2.model.getValueAt(i, 2).toString());
-//
-//                // Deductions
-//                double sss = Double.parseDouble(resultGui2.model2.getValueAt(i, 0).toString());
-//                double philhealth = Double.parseDouble(resultGui2.model2.getValueAt(i, 1).toString());
-//                double pagibig = Double.parseDouble(resultGui2.model2.getValueAt(i, 2).toString());
-//                double philippineTax = Double.parseDouble(resultGui2.model2.getValueAt(i, 3).toString());
-//
-//                // ID and Date Info
-//                String idNumber = (String) resultGui2.model5.getValueAt(i, 0);
-//                String date = (String) resultGui2.model5.getValueAt(i, 1);
-//
-//                // Validate date format and split into day/month/year
-//                String[] parts = date.split("/");
-//                if (parts.length != 3) {
-//                    System.out.println("Invalid date format for row " + i + ": " + date + ". Skipping...");
-//                    continue; // skip this record if date format invalid
-//                }
-//
-//                String day = parts[0];
-//                String month = "";
-//                String[] monthss = {
-//                        "January", "February", "March", "April", "May", "June",
-//                        "July", "August", "September", "October", "November", "December"
-//                };
-//
-//                int monthIndex;
-//                try {
-//                    monthIndex = Integer.parseInt(parts[1]) - 1; // Correct: month is parts[1], not parts[0]
-//                } catch (NumberFormatException exception) {
-//                    System.out.println("Invalid month number in date for row " + i + ": " + parts[1] + ". Skipping...");
-//                    continue;
-//                }
-//
-//                if (monthIndex >= 0 && monthIndex < 12) {
-//                    month = monthss[monthIndex];
-//                } else {
-//                    month = "Invalid Month";
-//                }
-//
-//                String year = parts[2];
-//
-//                // Attendance
-//                int present = Integer.parseInt(resultGui2.model5.getValueAt(i, 2).toString());
-//                int absent = Integer.parseInt(resultGui2.model5.getValueAt(i, 3).toString());
-//                int late = Integer.parseInt(resultGui2.model5.getValueAt(i, 4).toString());
-//
-//                // Payroll
-//                double grossPay = Double.parseDouble(resultGui2.model3.getValueAt(i, 0).toString());
-//                double netPay = Double.parseDouble(resultGui2.model3.getValueAt(i, 1).toString());
-//                double totalDeduction = Double.parseDouble(resultGui2.model3.getValueAt(i, 2).toString());
-//
-//                // Total Minutes
-//                int totalMinutes = Integer.parseInt(resultGui2.model4.getValueAt(i, 0).toString());
-//
-//                // *** Duplicate check before saving ***
-//                if (col.isDuplicate(idNumber, day, month, year)) {
-//                    System.out.println("Duplicate found for ID " + idNumber + " on " + date + ". Skipping save.");
-//                    continue; // Skip saving this record, move to next iteration
-//                }
-//
-//                // Upload to Firestore
-//                col.addEmployee(
-//                        name, position, basicSalary,
-//                        sss, philhealth, pagibig, philippineTax, totalDeduction,
-//                        idNumber, day, month, year,
-//                        present, absent, late, totalMinutes,
-//                        grossPay, netPay
-//                );
-//            }
-//        });
+        FireBaseCollection col = new FireBaseCollection(resultGui2);
+
+        //col.printAllEmployees();
+
+        resultGui2.model.clear();
+        for (int i = 0; i < col.getAllPerson().size(); i++) {
+            resultGui2.model.adding(col.getAllPerson().get(i));
+            System.out.println(col.getAllPerson().get(i));
+        }
+
+
+        resultGui2.model2.clear();
+        for (int i = 0; i < col.getAllDeductions().size(); i++) {
+            resultGui2.model2.adding(col.getAllDeductions().get(i));
+        }
+
+
+        resultGui2.model3.clear();
+        for (int i = 0; i < col.getAllEmpo().size(); i++) {
+            resultGui2.model3.adding(col.getAllTotal().get(i));
+        }
+
+
+        resultGui2.model5.clear();
+        for (int i = 0; i < col.getAllEmpo().size(); i++) {
+            resultGui2.model5.adding(col.getAllEmpo().get(i));
+        }
+
+
+        resultGui2.model4.clear();
+        for (int i = 0; i < col.getTime().size(); i++) {
+            resultGui2.model4.adding(col.getTime().get(i));
+        }
+
+
+
+        resultGui2.FireBaseUPdate.addActionListener(event -> {
+            int selectedRow = resultGui2.table.getSelectedRow();
+
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(null, "Please select a row to update in Firebase.");
+                return;
+            }
+
+            try {
+                // Name and position
+                String name = (String) resultGui2.model.getValueAt(selectedRow, 0);
+                String[] names = name.split(" ", 2);
+                String first = names.length > 0 ? names[0] : "";
+                String last = names.length > 1 ? names[1] : "";
+                String position = (String) resultGui2.model.getValueAt(selectedRow, 1);
+                double basicSalary = Double.parseDouble(resultGui2.model.getValueAt(selectedRow, 2).toString());
+
+                // Deductions
+                double sss = Double.parseDouble(resultGui2.model2.getValueAt(selectedRow, 0).toString());
+                double philhealth = Double.parseDouble(resultGui2.model2.getValueAt(selectedRow, 1).toString());
+                double pagibig = Double.parseDouble(resultGui2.model2.getValueAt(selectedRow, 2).toString());
+                double tax = Double.parseDouble(resultGui2.model2.getValueAt(selectedRow, 3).toString());
+                double totalDeduction = sss + philhealth + pagibig + tax;
+
+                // Payroll
+                double gross = Double.parseDouble(resultGui2.model3.getValueAt(selectedRow, 0).toString());
+                double netPay = Double.parseDouble(resultGui2.model3.getValueAt(selectedRow, 1).toString());
+
+                // ID and Date
+                String idNumber = (String) resultGui2.model5.getValueAt(selectedRow, 0);
+                String date = (String) resultGui2.model5.getValueAt(selectedRow, 1);
+                String[] parts = date.split("/");
+                if (parts.length != 3) {
+                    JOptionPane.showMessageDialog(null, "Invalid date format: " + date);
+                    return;
+                }
+
+                String[] monthss = {
+                        "January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"
+                };
+                int monthIndex = Integer.parseInt(parts[0]);
+                String day = parts[1];
+                String month = (monthIndex >= 1 && monthIndex <= 12) ? monthss[monthIndex - 1] : "Invalid";
+                String year = parts[2];
+
+                // Attendance
+                int present = Integer.parseInt(resultGui2.model5.getValueAt(selectedRow, 2).toString());
+                int absent = Integer.parseInt(resultGui2.model5.getValueAt(selectedRow, 3).toString());
+                int late = Integer.parseInt(resultGui2.model5.getValueAt(selectedRow, 4).toString());
+
+                // Minutes
+                int totalMinutes = Integer.parseInt(resultGui2.model4.getValueAt(selectedRow, 0).toString());
+
+                // Call Firebase update
+                col.updateEmployee(
+                        first + " " + last,
+                        position,
+                        basicSalary,
+                        sss,
+                        philhealth,
+                        pagibig,
+                        tax,
+                        totalDeduction,
+                        idNumber,
+                        day,
+                        month,
+                        year,
+                        present,
+                        absent,
+                        late,
+                        totalMinutes,
+                        gross,
+                        netPay
+                );
+
+                JOptionPane.showMessageDialog(null, "Employee data updated in Firebase successfully.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error during update: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        });
+
+
+
+
+
+        resultGui2.Save.addActionListener(event -> {
+            int rows = resultGui2.model.getRowCount();
+
+
+            for (int i = 0; i < rows; i++) {
+                // Info
+                String name = (String) resultGui2.model.getValueAt(i, 0);
+                String position = (String) resultGui2.model.getValueAt(i, 1);
+                double basicSalary = Double.parseDouble(resultGui2.model.getValueAt(i, 2).toString());
+
+                // Deductions
+                double sss = Double.parseDouble(resultGui2.model2.getValueAt(i, 0).toString());
+                double philhealth = Double.parseDouble(resultGui2.model2.getValueAt(i, 1).toString());
+                double pagibig = Double.parseDouble(resultGui2.model2.getValueAt(i, 2).toString());
+                double philippineTax = Double.parseDouble(resultGui2.model2.getValueAt(i, 3).toString());
+
+                // ID and Date
+                String idNumber = (String) resultGui2.model5.getValueAt(i, 0);
+                String date = (String) resultGui2.model5.getValueAt(i, 1);
+
+                // Date format 00/00/00
+                String[] parts = date.split("/");
+                if (parts.length != 3) {
+                    System.out.println("Invalid date format for row " + i + ": " + date + ". Skipping...");
+                    continue;
+                }
+
+                String day = parts[1];
+                String month = "";
+                String[] monthss = {
+                        "January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"
+                };
+
+                int monthIndex;
+                try {
+                    monthIndex = Integer.parseInt(parts[0]) ;
+                } catch (NumberFormatException exception) {
+                    System.out.println("Invalid month number in date for row " + i + ": " + parts[1] + ". Skipping...");
+                    continue;
+                }
+
+                if (monthIndex >= 0 && monthIndex < 12) {
+                    month = monthss[monthIndex-1];
+                } else {
+                    month = "Invalid Month";
+                }
+
+                String year = parts[2];
+
+                //Attendance
+                int present = Integer.parseInt(resultGui2.model5.getValueAt(i, 2).toString());
+                int absent = Integer.parseInt(resultGui2.model5.getValueAt(i, 3).toString());
+                int late = Integer.parseInt(resultGui2.model5.getValueAt(i, 4).toString());
+
+                //Payroll
+                double grossPay = Double.parseDouble(resultGui2.model3.getValueAt(i, 0).toString());
+                double netPay = Double.parseDouble(resultGui2.model3.getValueAt(i, 1).toString());
+                double totalDeduction = Double.parseDouble(resultGui2.model3.getValueAt(i, 2).toString());
+
+                //Total Minutes
+                int totalMinutes = Integer.parseInt(resultGui2.model4.getValueAt(i, 0).toString());
+
+
+                //Checking dupe
+                String Ida ="";
+                String Montha = "";
+                String Yeara = "";
+
+                int check = 0;
+
+                for (int j = 0; j < col.getAllEmpo().size(); j++) {
+                    Employee emp = col.getAllEmpo().get(j);
+                    Ida = emp.getID();
+                    Montha = emp.getMonth();
+                    Yeara = emp.getYear();
+                    if (idNumber.equals(Ida) && month.equals(Montha) && year.equals(Yeara)) {
+                        check = 1;
+                    }
+
+                }
+
+                if(check!=1){
+                    col.addEmployee(
+                            name, position, basicSalary,
+                            sss, philhealth, pagibig, philippineTax, totalDeduction,
+                            idNumber, day, month, year,
+                            present, absent, late, totalMinutes,
+                            grossPay, netPay
+                    );
+                }else {
+                    System.out.println("already exist");
+                }
+
+            }
+        });
 
 
 
@@ -179,7 +279,6 @@ public class Main {
         resultGui2.ComputeAnnualPay.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Create a new JFrame or JDialog for the search window
                 JFrame searchFrame = new JFrame("Search Employee by ID");
                 searchFrame.setSize(400, 150);
                 searchFrame.setLocationRelativeTo(null);
@@ -315,7 +414,6 @@ public class Main {
                     public void actionPerformed(ActionEvent ev) {
                         try {
                             double newSalary = Double.parseDouble(salaryField.getText());
-                            // Assuming column 8 is Daily Salary
                             String timeStr = (String) resultGui2.model4.getValueAt(selectedRow, 0);
                             double time = Double.parseDouble(timeStr);
 

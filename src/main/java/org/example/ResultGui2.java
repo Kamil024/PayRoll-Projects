@@ -31,7 +31,7 @@ public class ResultGui2 extends JFrame {
 
     JPanel panel;
 
-    JButton deleteButton, ComputeAnnualPay, Update,Save,load;
+    JButton deleteButton, ComputeAnnualPay, Update,Save,FireBaseUPdate;
 
     JPanel TablePanel;
     private int selectedTableRow = -1;
@@ -77,19 +77,21 @@ public class ResultGui2 extends JFrame {
         ComputeAnnualPay = new JButton("Anual Pay");
         Update = new JButton("Update");
         Save = new JButton("Save");
-        load = new JButton("load");
+        FireBaseUPdate = new JButton("UpdateFireBase");
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBackground(new Color(0, 0, 64));
 
         deleteButton.setFont(bigFont);
         ComputeAnnualPay.setFont(bigFont);
         Update.setFont(bigFont);
+        Save.setFont(bigFont);
+        FireBaseUPdate.setFont(bigFont);
 
         panel.add(deleteButton);
         panel.add(ComputeAnnualPay);
         panel.add(Update);
         panel.add(Save);
-        panel.add(load);
+        panel.add(FireBaseUPdate);
 
         TablePanel = new JPanel();
 
@@ -160,7 +162,7 @@ public class ResultGui2 extends JFrame {
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(20);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(400, 600));
+        scrollPane.setPreferredSize(new Dimension(300, 450));
         return scrollPane;
     }
 
