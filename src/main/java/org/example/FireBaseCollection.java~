@@ -21,11 +21,10 @@ public class FireBaseCollection {
         this.formGui = formGui;
         db = null;
         try {
-            //Butngi ni dnay para mag work ang program :Jayson :>
-            FileInputStream serviceAccount = new FileInputStream("EMPTY");
+            FileInputStream serviceAccount = new FileInputStream("src/main/java/org/example/out/production/example/org/example/payroll-f3785-firebase-adminsdk-fbsvc-3495b7d35f.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("EMPTY")
+                    .setDatabaseUrl("https://payroll-f3785-default-rtdb.asia-southeast1.firebasedatabase.app/")
                     .build();
             FirebaseApp.initializeApp(options);
 

@@ -91,7 +91,7 @@ public class ResultGui2 extends JFrame {
         panel.add(ComputeAnnualPay);
         panel.add(Update);
         panel.add(Save);
-        panel.add(FireBaseUPdate);
+        //panel.add(FireBaseUPdate);
 
         TablePanel = new JPanel();
 

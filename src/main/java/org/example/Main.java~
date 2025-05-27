@@ -201,7 +201,7 @@ public class Main {
 
                     String year = parts[2];
 
-                    //col.debugPrintAllEmployees();
+                    col.debugPrintAllEmployees();
                     col.deleteEmployeeByIdMonthYear(idNumber,month,year);
 
                     resultGui2.model5.remove(selectedRow);
