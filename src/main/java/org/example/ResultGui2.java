@@ -71,6 +71,8 @@ public class ResultGui2 extends JFrame {
         add(jScrollPane2, BorderLayout.EAST);
         add(jScrollPane3, BorderLayout.SOUTH);
 
+
+
         Font bigFont = new Font("Arial", Font.PLAIN, 16);
 
         deleteButton = new JButton("Delete");
@@ -105,8 +107,6 @@ public class ResultGui2 extends JFrame {
         container = this.getContentPane();
         container.setLayout(layout);
 
-
-        //adding bg
         container.setBackground(new Color(0, 0, 64));
 
 //        addtoCon(jScrollPane,0,0,1,1);
@@ -123,6 +123,7 @@ public class ResultGui2 extends JFrame {
         this.pack();
         //stop resize
         this.setResizable(false);
+
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         table.getSelectionModel().addListSelectionListener(e -> {
@@ -162,7 +163,7 @@ public class ResultGui2 extends JFrame {
         table.setFont(new Font("Arial", Font.PLAIN, 12));
         table.setRowHeight(20);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(300, 450));
+        scrollPane.setPreferredSize(new Dimension(350, 350));
         return scrollPane;
     }
 

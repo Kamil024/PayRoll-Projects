@@ -12,7 +12,7 @@ import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-//ApiFuture<DocumentReference> result1;
+
 public class FireBaseCollection {
     Firestore db;
     ResultGui2 formGui;
@@ -92,16 +92,6 @@ public class FireBaseCollection {
     }
 
 
-
-
-
-
-
-
-
-
-
-    //Map<String, Object> Employe = new HashMap<>();
     public void addEmployee(
             String name,
             String position,
@@ -168,8 +158,6 @@ public class FireBaseCollection {
     }
 
 
-
-
     public ArrayList<Deduction> getAllDeductions() {
 
         ArrayList<Deduction> deductionsList = new ArrayList<>();
@@ -177,25 +165,15 @@ public class FireBaseCollection {
             ApiFuture<QuerySnapshot> future = db.collection("employees").get();
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 
-            if (documents.isEmpty()) {
-                System.out.println("No employee documents found in Firestore.");
-            }
+
 
             for (QueryDocumentSnapshot doc : documents) {
-                //test
-//                System.out.println("Document ID: " + doc.getId());
-//                System.out.println("Document data: " + doc.getData());
-
                 Map<String, Object> data = doc.getData();
 
-                Object deductionsObj = data.get("E. Deductions"); // Only this key
-                //test
-//                System.out.println("deductionsObj class: " + (deductionsObj != null ? deductionsObj.getClass().getName() : "null"));
-
+                Object deductionsObj = data.get("E. Deductions");
                 if (deductionsObj instanceof Map) {
                     Map<String, Object> deductionsMap = (Map<String, Object>) deductionsObj;
-                    //test
-//                    System.out.println("Deductions map found: " + deductionsMap);
+;
 
                     double sss = deductionsMap.get("SSS") != null ? ((Number) deductionsMap.get("SSS")).doubleValue() : 0.0;
                     double philhealth = deductionsMap.get("PhilHealth") != null ? ((Number) deductionsMap.get("PhilHealth")).doubleValue() : 0.0;
@@ -225,33 +203,22 @@ public class FireBaseCollection {
     }
 
 
-
-
-
-
-
     public ArrayList<Person> getAllPerson() {
         ArrayList<Person> personList = new ArrayList<>();
         try {
             ApiFuture<QuerySnapshot> future = db.collection("employees").get();
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 
-            if (documents.isEmpty()) {
-                System.out.println("No employee documents found in Firestore.");
-            }
+
 
             for (QueryDocumentSnapshot doc : documents) {
-                //test
-//                System.out.println("Document ID: " + doc.getId());
-//                System.out.println("Document data: " + doc.getData());
 
                 Map<String, Object> data = doc.getData();
 
                 Object idObj = data.get("A. Iddentification");
                 Object salaryObj = data.get("D. Salary");
                 //test
-//                System.out.println("idObj class: " + (idObj != null ? idObj.getClass().getName() : "null"));
-//                System.out.println("salaryObj class: " + (salaryObj != null ? salaryObj.getClass().getName() : "null"));
+
 
                 if (idObj instanceof Map && salaryObj instanceof Map) {
                     Map<String, Object> idMap = (Map<String, Object>) idObj;
@@ -388,8 +355,6 @@ public class FireBaseCollection {
                 Object salaryObj = data.get("D. Salary");
                 if (salaryObj instanceof Map) {
                     Map<String, Object> salaryMap = (Map<String, Object>) salaryObj;
-                    //test
-//                    System.out.println("Salary map in doc " + doc.getId() + ": " + salaryMap);
 
                     double grossPayDouble = 0.0;
                     double netPayDouble = 0.0;
@@ -436,12 +401,6 @@ public class FireBaseCollection {
                     }
 
                     totalDeductionDouble = grossPayDouble - netPayDouble;
-                    // DEBUG print the parsed values
-                    //test
-//                    System.out.printf("Doc %s - GrossPay: %.2f, NetPay: %.2f, TotalDeduction: %.2f%n",
-//                            doc.getId(), grossPayDouble, netPayDouble, totalDeductionDouble);
-
-                    // fix format
                     Total t = new Total(
                             String.format("%.2f", grossPayDouble),
                             String.format("%.2f", netPayDouble),
@@ -457,10 +416,6 @@ public class FireBaseCollection {
         }
         return totalList;
     }
-
-
-
-
 
     public ArrayList<Employee> getAllEmpo() {
         ArrayList<Employee> empList = new ArrayList<>();
@@ -545,87 +500,4 @@ public class FireBaseCollection {
         return timeList;
     }
 
-
-
-
-
-
-
-
-
-
-//    public void deletePerson(int index){
-//        if(index >=0 && index<formGui.tablee.person.size()){
-//            Person personToDelete = formGui.tablee.person.get(index);
-//
-//            CollectionReference personsCollect = db.collection("person");
-//            ApiFuture<QuerySnapshot> query = personsCollect.get();
-//
-//            try{
-//                QuerySnapshot querySnapshot = query.get();
-//                List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-//
-//                for(QueryDocumentSnapshot document : documents){
-//                    String firstName = document.getString("Name");
-//                    String lastName = document.getString("Score");
-//
-//                    if(firstName != null && lastName != null && firstName.equals(personToDelete.getFirst())&&
-//                            lastName.equals(personToDelete.getLast())){
-//                        //del
-//                        ApiFuture<com.google.cloud.firestore.WriteResult> deletResult = personsCollect.document(document.getId()).delete();
-//                        deletResult.get();
-//                        formGui.tablee.person.remove(index);
-//                        formGui.tablee.fireTableDataChanged();
-//                        return;
-//                    }
-//                }
-//                System.out.println("chek ");
-//            }catch (InterruptedException | ExecutionException e){
-//                System.out.println("WLA");
-//            }
-//        }else{
-//            System.out.println("wla ka mn i del");
-//        }
-//    }
-
-
-
-//    public void edito(int index, String FN, String LN){
-//        if(index >=0 && index<formGui.tablee.person.size()){
-//            Person personToEdit = formGui.tablee.person.get(index);
-//
-//            CollectionReference personsCollect = db.collection("person");
-//            ApiFuture<QuerySnapshot> query = personsCollect.get();
-//
-//            try {
-//                QuerySnapshot querySnapshot = query.get();
-//                List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-//
-//                for(QueryDocumentSnapshot document : documents){
-//                    String firstName = document.getString("Name");
-//                    String lastName = document.getString("Score");
-//
-//                    if(firstName != null && lastName != null && firstName.equals(personToEdit.getFirst())&&
-//                            lastName.equals(personToEdit.getLast())){
-//
-//                        Map<String, Object> updates = new HashMap<>();
-//                        updates.put("Name", FN);
-//                        updates.put("Score", LN);
-//
-//                        ApiFuture<com.google.cloud.firestore.WriteResult> editp = personsCollect.document(document.getId()).update(updates);
-//                        editp.get();
-//
-//                        personToEdit.setFirst(FN);
-//                        personToEdit.setLast(LN);
-//                        formGui.tablee.fireTableRowsUpdated(index,index);
-//                        return;
-//                    }
-//                }
-//            }catch (InterruptedException | ExecutionException e){
-//                System.out.println("sadya");
-//            }
-//        }else{
-//            System.out.println("ELE");
-//        }
-//    }
 }

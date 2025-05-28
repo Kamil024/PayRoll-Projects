@@ -253,7 +253,7 @@ public class JavaGui extends JFrame {
                 // philippine tax calculations
                 double tax = 0;
                 double totalgross = gross - (sss + pagibig + philhealth);
-                System.out.println(totalgross);
+
                 if(totalgross <= 20833){
                     // wala tax kng nubo sa 20,833
                     tax = 0;
@@ -472,10 +472,6 @@ public class JavaGui extends JFrame {
 
         container.add(component, gridBagConstraints);
     }
-
-
-
-
 
     //Explain ano ni Commented by: Jayson
     ////////////////////
