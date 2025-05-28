@@ -62,9 +62,6 @@ public class AttendanceFrame extends JFrame {
         monthLabel = new JLabel("Month:");
         yearLabel = new JLabel("Year:");
         Checkin = new JLabel("Time of Check in:");
-        //the attendance or work time should be 8 hours per day
-        //fix hour is 8:00 am to 4:00 pm
-        //if i in
         Checkout = new JLabel("Time of Check out");
 
         idField = new JTextField(10);
@@ -124,8 +121,6 @@ public class AttendanceFrame extends JFrame {
 
         clear.addActionListener(e -> {
             idField.setText("");
-            //in.setText("");
-            //out.setText("");
             yearField.setText("2025");  // reset to default year
             dayCounter = 0;
             presentCount = 0;
@@ -254,7 +249,6 @@ public class AttendanceFrame extends JFrame {
         // If validation passed, show duration
 
         int checker = getWorkDurationInMinutes(checkin, checkout);
-        //System.out.println(checker);
         if(checker>480){
             return;
         }
@@ -274,7 +268,6 @@ public class AttendanceFrame extends JFrame {
 
         if(dayCounter<maxDays){
             totalMonthlyMinutes += checker;
-            System.out.println(totalMonthlyMinutes);
         }
 
         if (dayCounter < maxDays) {
@@ -325,6 +318,9 @@ public class AttendanceFrame extends JFrame {
             checkIn = Math.max(checkIn, workStart);
             checkOut = Math.min(checkOut, workEnd);
             int duration = checkOut - checkIn;
+            if(inHours==0){
+                duration=0;
+            }
             if (duration < 0) {
                 return 0;
             }
@@ -333,8 +329,6 @@ public class AttendanceFrame extends JFrame {
             return -1;
         }
     }
-
-
 
     private void updateDayLimitOnMonthYearChange() {
         int maxDays = getDaysInCurrentMonth();
